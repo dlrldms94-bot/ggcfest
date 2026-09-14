@@ -204,7 +204,14 @@ a { text-decoration: none; }
   letter-spacing: -0.03em;
 }
 .btn-reserve:hover { filter: brightness(1.05); }
-.btn-reserve--block { width: 100%; margin-top: 8px; padding: 14px; }
+.btn-reserve--block {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+  padding: 14px;
+  text-align: center;
+  box-sizing: border-box;
+}
 
 /* Hero */
 .hero {
@@ -866,10 +873,36 @@ a { text-decoration: none; }
 .modal__panel {
   position: relative;
   width: min(420px, calc(100% - 32px));
+  max-height: min(92vh, 920px);
+  overflow: auto;
   padding: 36px 32px 28px;
   background: #1c1848;
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+.modal__panel.is-summons {
+  width: min(440px, calc(100% - 24px));
+}
+.modal__panel h2 {
+  font-size: 26px;
+  word-break: keep-all;
+}
+.modal__panel .summons-result {
+  text-align: center;
+}
+.modal__panel .summons-result h2 {
+  text-align: center;
+  font-size: 26px;
+}
+.modal__panel .summons-result .modal__lead {
+  text-align: center;
+}
+.summons-preview {
+  display: block;
+  width: 100%;
+  margin: 4px 0 16px;
+  border-radius: 10px;
+  background: #2a2460;
 }
 .modal__close {
   position: absolute;

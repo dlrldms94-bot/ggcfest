@@ -320,49 +320,128 @@ parkingBtn.addEventListener("click", () => {
 });
 
 const modal = document.getElementById("reserveModal");
-document.querySelectorAll("[data-open-reserve]").forEach((btn) => {
-  btn.addEventListener("click", () => {
-    modal.hidden = false;
-    header.classList.remove("is-open");
+const reservePanel = document.getElementById("reservePanel");
+const reserveFormView = document.getElementById("reserveFormView");
+const summonsResult = document.getElementById("summonsResult");
+const summonsPreview = document.getElementById("summonsPreview");
+const summonsDownload = document.getElementById("summonsDownload");
+let summonsObjectUrl = "";
+const SUMMONS = {
+  src: "./img/summons.jpg",
+  width: 724,
+  height: 1024,
+  scale: 2,
+  textX: 524,
+  textY: 364,
+  maxWidth: 90,
+  fontSize: 32,
+  color: "#58507e",
+};
+const summonsTemplate = new Image();
+summonsTemplate.src = SUMMONS.src;
+
+function resetReserveModal() {
+  reserveFormView.hidden = false;
+  summonsResult.hidden = true;
+  reservePanel.classList.remove("is-summons");
+  if (summonsObjectUrl) {
+    URL.revokeObjectURL(summonsObjectUrl);
+    summonsObjectUrl = "";
+  }
+  summonsPreview.removeAttribute("src");
+  summonsDownload.removeAttribute("href");
+}
+
+function openReserveModal() {
+  resetReserveModal();
+  modal.hidden = false;
+  header.classList.remove("is-open");
+}
+
+function closeReserveModal() {
+  modal.hidden = true;
+  resetReserveModal();
+}
+
+async function createSummonsImage(name) {
+  await document.fonts.ready.catch(() => {});
+  if (!summonsTemplate.complete || !summonsTemplate.naturalWidth) {
+    await new Promise((resolve, reject) => {
+      summonsTemplate.onload = resolve;
+      summonsTemplate.onerror = reject;
+      if (!summonsTemplate.src) summonsTemplate.src = SUMMONS.src;
+    });
+  }
+
+  const scale = SUMMONS.scale;
+  const canvas = document.createElement("canvas");
+  canvas.width = SUMMONS.width * scale;
+  canvas.height = SUMMONS.height * scale;
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(summonsTemplate, 0, 0, canvas.width, canvas.height);
+
+  const label = name;
+  let size = SUMMONS.fontSize * scale;
+  const maxWidth = SUMMONS.maxWidth * scale;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillStyle = SUMMONS.color;
+  ctx.font = "800 " + size + 'px "SUIT Variable", "Apple SD Gothic Neo", sans-serif';
+  while (size > 22 * scale && ctx.measureText(label).width > maxWidth) {
+    size -= 1;
+    ctx.font = "800 " + size + 'px "SUIT Variable", "Apple SD Gothic Neo", sans-serif';
+  }
+
+  ctx.fillText(label, SUMMONS.textX * scale, SUMMONS.textY * scale);
+
+  const blob = await new Promise((resolve) => {
+    canvas.toBlob(resolve, "image/jpeg", 0.95);
   });
+  return blob;
+}
+
+document.querySelectorAll("[data-open-reserve]").forEach((btn) => {
+  btn.addEventListener("click", openReserveModal);
 });
 document.querySelectorAll("[data-close-reserve]").forEach((btn) => {
-  btn.addEventListener("click", () => {
-    modal.hidden = true;
-  });
+  btn.addEventListener("click", closeReserveModal);
 });
 document.getElementById("reserveForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const form = e.target;
   const submit = form.querySelector("button[type='submit']");
   const data = new FormData(form);
+  const name = String(data.get("name") || "").trim();
   submit.disabled = true;
   try {
-    const response = await fetch("/api/reservations", {
+    fetch("/api/reservations", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        name: data.get("name"),
+        name: name,
         phone: data.get("phone"),
         day: data.get("day"),
       }),
-    });
-    const result = await response.json().catch(() => ({}));
-    if (!response.ok) {
-      toast(result.message || "예약 신청에 실패했습니다.");
-      return;
-    }
-    modal.hidden = true;
-    form.reset();
-    toast("사전예약이 접수되었습니다.");
+    }).catch(() => {});
+
+    const blob = await createSummonsImage(name);
+    if (!blob) throw new Error("summons");
+    if (summonsObjectUrl) URL.revokeObjectURL(summonsObjectUrl);
+    summonsObjectUrl = URL.createObjectURL(blob);
+    summonsPreview.src = summonsObjectUrl;
+    summonsDownload.href = summonsObjectUrl;
+    summonsDownload.download = "강감찬소환장-" + name + ".jpg";
+    reserveFormView.hidden = true;
+    summonsResult.hidden = false;
+    reservePanel.classList.add("is-summons");
   } catch (error) {
-    toast("예약 신청에 실패했습니다. 잠시 후 다시 시도해 주세요.");
+    toast("소환장을 만들지 못했습니다. 잠시 후 다시 시도해 주세요.");
   } finally {
     submit.disabled = false;
   }
 });
 document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") modal.hidden = true;
+  if (e.key === "Escape") closeReserveModal();
 });
 
 function rnd(seed) {

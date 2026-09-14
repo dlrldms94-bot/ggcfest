@@ -36,7 +36,7 @@
         <a href="https://blog.naver.com/gwanakcf" target="_blank" rel="noopener noreferrer">재단 블로그</a>
       </nav>
 
-      <button class="btn-reserve" type="button" data-open-reserve>사전예약하기</button>
+      <button class="btn-reserve" type="button" data-open-reserve>사전신청하기</button>
     </div>
   </header>
 
@@ -307,24 +307,32 @@
 
   <div class="modal" id="reserveModal" hidden>
     <div class="modal__backdrop" data-close-reserve></div>
-    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="reserveTitle">
+    <div class="modal__panel" id="reservePanel" role="dialog" aria-modal="true" aria-labelledby="reserveTitle">
       <button class="modal__close" type="button" data-close-reserve aria-label="닫기">×</button>
-      <p class="eyebrow">PRE-RESERVE</p>
-      <h2 id="reserveTitle">사전예약하기</h2>
-      <p class="modal__lead">2026 관악강감찬축제 참여 일정을 남겨 주세요. 확정 안내는 연락처로 발송됩니다.</p>
-      <form class="reserve-form" id="reserveForm">
-        <label>이름<input type="text" name="name" required autocomplete="name"></label>
-        <label>연락처<input type="tel" name="phone" required inputmode="tel" placeholder="010-0000-0000"></label>
-        <label>방문 희망일
-          <select name="day" required>
-            <option value="">선택</option>
-            <option>10월 16일 (금)</option>
-            <option>10월 17일 (토)</option>
-            <option>10월 18일 (일)</option>
-          </select>
-        </label>
-        <button type="submit" class="btn-reserve btn-reserve--block">예약 신청</button>
-      </form>
+      <div id="reserveFormView">
+        <p class="eyebrow">PRE-APPLY</p>
+        <h2 id="reserveTitle">사전신청하기</h2>
+        <p class="modal__lead">이름을 남기면 강감찬 소환장에 새겨집니다. 이미지를 저장해 축제 현장에서 인증해 주세요.</p>
+        <form class="reserve-form" id="reserveForm">
+          <label>이름<input type="text" name="name" required autocomplete="name" maxlength="8" placeholder="홍길동"></label>
+          <label>연락처<input type="tel" name="phone" required inputmode="tel" placeholder="010-0000-0000"></label>
+          <label>방문 희망일
+            <select name="day" required>
+              <option value="">선택</option>
+              <option>10월 16일 (금)</option>
+              <option>10월 17일 (토)</option>
+              <option>10월 18일 (일)</option>
+            </select>
+          </label>
+          <button type="submit" class="btn-reserve btn-reserve--block">소환장 받기</button>
+        </form>
+      </div>
+      <div class="summons-result" id="summonsResult" hidden>
+        <h2 id="summonsTitle">강감찬 소환장이 도착했습니다</h2>
+        <p class="modal__lead">이미지를 저장한 뒤, 축제 현장에서 참여 인증에 사용해 주세요.</p>
+        <img class="summons-preview" id="summonsPreview" alt="강감찬 소환장">
+        <a class="btn-reserve btn-reserve--block" id="summonsDownload" download="강감찬소환장.jpg">소환장 이미지 저장</a>
+      </div>
     </div>
   </div>
 
