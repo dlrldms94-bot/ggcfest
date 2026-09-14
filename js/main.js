@@ -331,11 +331,35 @@ document.querySelectorAll("[data-close-reserve]").forEach((btn) => {
     modal.hidden = true;
   });
 });
-document.getElementById("reserveForm").addEventListener("submit", (e) => {
+document.getElementById("reserveForm").addEventListener("submit", async (e) => {
   e.preventDefault();
-  modal.hidden = true;
-  e.target.reset();
-  toast("사전예약이 접수되었습니다.");
+  const form = e.target;
+  const submit = form.querySelector("button[type='submit']");
+  const data = new FormData(form);
+  submit.disabled = true;
+  try {
+    const response = await fetch("/api/reservations", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: data.get("name"),
+        phone: data.get("phone"),
+        day: data.get("day"),
+      }),
+    });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      toast(result.message || "예약 신청에 실패했습니다.");
+      return;
+    }
+    modal.hidden = true;
+    form.reset();
+    toast("사전예약이 접수되었습니다.");
+  } catch (error) {
+    toast("예약 신청에 실패했습니다. 잠시 후 다시 시도해 주세요.");
+  } finally {
+    submit.disabled = false;
+  }
 });
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") modal.hidden = true;
