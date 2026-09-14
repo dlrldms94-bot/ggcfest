@@ -71,6 +71,39 @@ app.post(
   })
 );
 
+function readAdminKey(req) {
+  const header = String(req.get("x-admin-key") || "").trim();
+  if (header) return header;
+  const auth = String(req.get("authorization") || "");
+  if (auth.toLowerCase().indexOf("bearer ") === 0) {
+    return auth.slice(7).trim();
+  }
+  return String((req.query && req.query.key) || "").trim();
+}
+
+function requireAdmin(req, res, next) {
+  const expected = String(process.env.ADMIN_KEY || "").trim();
+  if (!expected) {
+    if (process.env.NODE_ENV === "production") {
+      return res.status(503).json({ message: "관리자 키가 설정되지 않았습니다." });
+    }
+    return next();
+  }
+  if (readAdminKey(req) !== expected) {
+    return res.status(401).json({ message: "관리자 비밀번호를 확인해 주세요." });
+  }
+  next();
+}
+
+app.get(
+  "/api/reservations",
+  requireAdmin,
+  handleAsync(async function (req, res) {
+    const items = await db.listReservations();
+    res.json({ ok: true, total: items.length, items: items });
+  })
+);
+
 app.use(express.static(ROOT));
 
 async function start() {

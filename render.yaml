@@ -20,6 +20,8 @@ services:
         fromDatabase:
           name: ggcfest-db
           property: connectionString
+      - key: ADMIN_KEY
+        sync: false
 
 databases:
   - name: ggcfest-db

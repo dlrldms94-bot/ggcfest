@@ -900,6 +900,9 @@ a { text-decoration: none; }
 .summons-preview {
   display: block;
   width: 100%;
+  height: auto;
+  aspect-ratio: 724 / 1024;
+  object-fit: contain;
   margin: 4px 0 16px;
   border-radius: 10px;
   background: #2a2460;
@@ -1006,3 +1009,78 @@ a { text-decoration: none; }
   .mission-grid { grid-template-columns: 1fr; }
   .guide, .program, .timetable, .event, .points, .location { padding: 80px 0; }
 }
+
+.admin-page { min-height: 100vh; background: #120f2e; }
+.admin { padding: 72px 0 80px; }
+.admin__wrap h1 {
+  margin: 0;
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+.admin__lead {
+  margin: 12px 0 28px;
+  color: var(--muted);
+  max-width: 40em;
+}
+.admin-lock[hidden],
+.admin-board[hidden] { display: none; }
+.admin-lock,
+.admin-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 16px;
+  align-items: end;
+  margin-bottom: 20px;
+}
+.admin-lock label,
+.admin-search,
+.admin-filter {
+  display: grid;
+  gap: 6px;
+  font-size: 13px;
+}
+.admin-lock input,
+.admin-search input,
+.admin-filter select {
+  min-width: 220px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 6px;
+  padding: 11px 12px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font: inherit;
+}
+.admin-lock__error {
+  width: 100%;
+  margin: 0;
+  color: #ffb4b4;
+  font-size: 13px;
+}
+.admin-count {
+  margin: 0 auto 0 0;
+  font-size: 15px;
+}
+.admin-table-wrap {
+  overflow: auto;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+}
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.admin-table th,
+.admin-table td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  white-space: nowrap;
+}
+.admin-table th {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--gold);
+  font-weight: 600;
+}
+.admin-table tr:last-child td { border-bottom: 0; }

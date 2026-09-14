@@ -331,10 +331,11 @@ const SUMMONS = {
   width: 724,
   height: 1024,
   scale: 2,
-  textX: 524,
-  textY: 364,
-  maxWidth: 90,
-  fontSize: 32,
+  x: 524 / 724,
+  y: 364 / 1024,
+  maxWidth: 90 / 724,
+  fontSize: 32 / 724,
+  minFontSize: 20 / 724,
   color: "#58507e",
 };
 const summonsTemplate = new Image();
@@ -373,26 +374,31 @@ async function createSummonsImage(name) {
     });
   }
 
+  const srcW = summonsTemplate.naturalWidth || SUMMONS.width;
+  const srcH = summonsTemplate.naturalHeight || SUMMONS.height;
   const scale = SUMMONS.scale;
   const canvas = document.createElement("canvas");
-  canvas.width = SUMMONS.width * scale;
-  canvas.height = SUMMONS.height * scale;
+  canvas.width = Math.round(srcW * scale);
+  canvas.height = Math.round(srcH * scale);
   const ctx = canvas.getContext("2d");
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = "high";
   ctx.drawImage(summonsTemplate, 0, 0, canvas.width, canvas.height);
 
   const label = name;
-  let size = SUMMONS.fontSize * scale;
-  const maxWidth = SUMMONS.maxWidth * scale;
+  let size = SUMMONS.fontSize * srcW * scale;
+  const maxWidth = SUMMONS.maxWidth * srcW * scale;
+  const minSize = SUMMONS.minFontSize * srcW * scale;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   ctx.fillStyle = SUMMONS.color;
   ctx.font = "800 " + size + 'px "SUIT Variable", "Apple SD Gothic Neo", sans-serif';
-  while (size > 22 * scale && ctx.measureText(label).width > maxWidth) {
+  while (size > minSize && ctx.measureText(label).width > maxWidth) {
     size -= 1;
     ctx.font = "800 " + size + 'px "SUIT Variable", "Apple SD Gothic Neo", sans-serif';
   }
 
-  ctx.fillText(label, SUMMONS.textX * scale, SUMMONS.textY * scale);
+  ctx.fillText(label, SUMMONS.x * srcW * scale, SUMMONS.y * srcH * scale);
 
   const blob = await new Promise((resolve) => {
     canvas.toBlob(resolve, "image/jpeg", 0.95);

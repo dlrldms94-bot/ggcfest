@@ -69,8 +69,30 @@ async function createReservation(data) {
   };
 }
 
+async function listReservations() {
+  if (useMemory) {
+    return memoryReservations.slice().reverse();
+  }
+
+  const result = await pool.query(
+    `SELECT id, name, phone, visit_day, created_at
+     FROM reservations
+     ORDER BY created_at DESC, id DESC`
+  );
+  return result.rows.map(function (row) {
+    return {
+      id: row.id,
+      name: row.name,
+      phone: row.phone,
+      visitDay: row.visit_day,
+      createdAt: row.created_at,
+    };
+  });
+}
+
 module.exports = {
   initDatabase,
   pingDatabase,
   createReservation,
+  listReservations,
 };
