@@ -1,18 +1,21 @@
+# Render Blueprint — https://render.com/docs/blueprint-spec
+# Node Web Service + PostgreSQL
+# 기존 서비스 이름 충돌을 피하기 위해 ggcfest-web 사용
+
 services:
   - type: web
-    name: ggcfest
+    name: ggcfest-web
     runtime: node
     plan: free
-    region: singapore
     buildCommand: npm install
     startCommand: npm start
     healthCheckPath: /api/health
     autoDeploy: true
     envVars:
-      - key: NODE_ENV
-        value: production
       - key: NODE_VERSION
         value: "20"
+      - key: NODE_ENV
+        value: production
       - key: DATABASE_URL
         fromDatabase:
           name: ggcfest-db
@@ -21,4 +24,3 @@ services:
 databases:
   - name: ggcfest-db
     plan: basic_256mb
-    region: singapore
