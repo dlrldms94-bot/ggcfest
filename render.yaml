@@ -20,4 +20,5 @@ services:
 
 databases:
   - name: ggcfest-db
-    plan: free
+    plan: basic_256mb
+    region: singapore
