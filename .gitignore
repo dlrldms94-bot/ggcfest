@@ -4,3 +4,4 @@ node_modules/
 *.log
 .env
 .env.*
+img/program/[0-9].*/
