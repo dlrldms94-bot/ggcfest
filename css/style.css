@@ -69,7 +69,10 @@ a { text-decoration: none; }
 }
 .section-head--center .eyebrow {
   flex-direction: column;
-  gap: 8px;
+  gap: 16px;
+}
+.section-head--center .eyebrow::before {
+  content: none;
 }
 .section-head--center .eyebrow::after {
   content: "";
