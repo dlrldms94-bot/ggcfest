@@ -825,6 +825,7 @@ a { text-decoration: none; }
   padding: 90px 0;
   background: linear-gradient(180deg, #3a2d6e, #2b2258);
 }
+.partners[hidden] { display: none; }
 .partners__row {
   display: grid;
   grid-template-columns: 0.7fr 1.3fr;
