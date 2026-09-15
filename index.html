@@ -313,9 +313,14 @@
     <div class="modal__backdrop" data-close-reserve></div>
     <div class="modal__panel" id="reservePanel" role="dialog" aria-modal="true" aria-labelledby="reserveTitle">
       <button class="modal__close" type="button" data-close-reserve aria-label="닫기">×</button>
-      <div id="reserveFormView">
+      <div class="reserve-soon" id="reserveSoonView">
+        <p class="reserve-soon__mark">COMING SOON</p>
+        <h2 id="reserveTitle">사전신청 준비 중입니다</h2>
+        <p class="modal__lead">공개 일정이 정해지면 신청을 받을 예정입니다.</p>
+      </div>
+      <div id="reserveFormView" hidden>
         <p class="eyebrow">PRE-APPLY</p>
-        <h2 id="reserveTitle">사전신청하기</h2>
+        <h2 id="reserveFormTitle">사전신청하기</h2>
         <p class="modal__lead">이름을 남기면 강감찬 소환장에 새겨집니다. 이미지를 저장해 축제 현장에서 인증해 주세요.</p>
         <form class="reserve-form" id="reserveForm">
           <label>이름<input type="text" name="name" required autocomplete="name" maxlength="8" placeholder="홍길동"></label>

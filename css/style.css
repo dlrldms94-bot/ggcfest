@@ -883,6 +883,9 @@ a { text-decoration: none; }
 
 /* Modal / toast */
 .modal[hidden] { display: none; }
+.reserve-soon[hidden],
+#reserveFormView[hidden],
+.summons-result[hidden] { display: none; }
 .modal {
   position: fixed;
   inset: 0;
@@ -946,6 +949,20 @@ a { text-decoration: none; }
   margin: 10px 0 22px;
   color: var(--muted);
   font-size: 14px;
+}
+.reserve-soon {
+  text-align: center;
+  padding: 12px 0 8px;
+}
+.reserve-soon .modal__lead {
+  margin-bottom: 8px;
+}
+.reserve-soon__mark {
+  margin: 18px 0 14px;
+  color: var(--gold-2);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.22em;
 }
 .reserve-form { display: grid; gap: 12px; }
 .reserve-form label {

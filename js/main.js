@@ -321,8 +321,10 @@ parkingBtn.addEventListener("click", () => {
   parkingBtn.setAttribute("aria-expanded", String(open));
 });
 
+const RESERVE_OPEN = false;
 const modal = document.getElementById("reserveModal");
 const reservePanel = document.getElementById("reservePanel");
+const reserveSoonView = document.getElementById("reserveSoonView");
 const reserveFormView = document.getElementById("reserveFormView");
 const summonsResult = document.getElementById("summonsResult");
 const summonsPreview = document.getElementById("summonsPreview");
@@ -344,7 +346,8 @@ const summonsTemplate = new Image();
 summonsTemplate.src = SUMMONS.src;
 
 function resetReserveModal() {
-  reserveFormView.hidden = false;
+  reserveSoonView.hidden = RESERVE_OPEN;
+  reserveFormView.hidden = !RESERVE_OPEN;
   summonsResult.hidden = true;
   reservePanel.classList.remove("is-summons");
   if (summonsObjectUrl) {
@@ -416,6 +419,7 @@ document.querySelectorAll("[data-close-reserve]").forEach((btn) => {
 });
 document.getElementById("reserveForm").addEventListener("submit", async (e) => {
   e.preventDefault();
+  if (!RESERVE_OPEN) return;
   const form = e.target;
   const submit = form.querySelector("button[type='submit']");
   const data = new FormData(form);
