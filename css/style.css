@@ -822,6 +822,16 @@ a { text-decoration: none; }
   line-height: 1.7;
   opacity: 0.8;
 }
+.location__mascot {
+  position: absolute;
+  right: 32px;
+  bottom: 0;
+  z-index: 2;
+  width: min(220px, 18vw);
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
 
 /* Partners */
 .partners {
@@ -1013,6 +1023,15 @@ a { text-decoration: none; }
   .hero__partners { flex-wrap: wrap; gap: 16px 24px; padding-bottom: 20px; }
   .guide__grid { grid-template-columns: 1fr; gap: 32px; }
   .partners__row, .map-card { grid-template-columns: 1fr; gap: 32px; }
+  .location__mascot { width: min(160px, 36vw); right: 12px; }
+  .parking-toggle,
+  .map-outlink {
+    display: block;
+    width: fit-content;
+    margin-left: 0;
+    text-align: left;
+  }
+  .map-outlink { margin-top: 10px; }
   .downloads { width: min(300px, 100%); justify-self: start; }
   .guide__desc { margin-top: 40px; }
   .guide__watermark { width: min(280px, 70vw); }
