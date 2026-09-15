@@ -1,14 +1,14 @@
 const programs = {
   special: [
     {
-      comingSoon: true,
+      img: "./img/program/special-conference.jpg",
       title: "10주년 기념 학술대회 &lt;지나봄, 내다봄&gt;",
       desc: "10주년 기념 도심형 역사문화축제, 강감찬축제의 어제와 오늘을 통해 미래 전략을 이야기하는 학술대회",
       place: "서울시민대학",
       time: "10.16.(금) 14:00 – 17:00",
     },
     {
-      comingSoon: true,
+      img: "./img/program/special-performance.jpg",
       title: "10주년 기념 특별공연 &lt;강감찬, 별에서 오다 &amp; 공중 불꽃 퍼포먼스&gt;",
       desc: "전통연희와 현대무용, 라이브 연주와 공중 불꽃 퍼포먼스가 어우러지는 60분간의 대형 야외 스펙터클. 강감찬의 이름에 담긴 판단과 용기, 연대와 공동체 정신을 관객과 함께 나누는 10주년 대표 넌버벌 퍼포먼스",
       place: "대광장",
@@ -114,7 +114,7 @@ const programs = {
       time: "10.18.(일) 11:00 – 19:00",
     },
     {
-      comingSoon: true,
+      img: "./img/program/anguk-library.jpg",
       title: "고려수서원 &lt;팝업야외도서관&gt;",
       desc: "강감찬과 고려의 이야기를 담은 책은 물론 다양한 분야의 도서를 만나는 시간. 서울도서관과 연계해 진행되는 팝업 야외도서관",
       place: "안국사",
@@ -132,14 +132,14 @@ const programs = {
   ],
   extra: [
     {
-      comingSoon: true,
+      img: "./img/program/extra-archive.jpg",
       title: "10주년 기념 아카이브 전시",
       desc: "지난 10년간 지역 주민과 함께한 관악강감찬축제의 역사를 한눈에 조망하는 기념 기획 전시",
       place: "낙성꽃뜰정원",
       time: "10.16.(금) ~ 18.(일)",
     },
     {
-      comingSoon: true,
+      img: "./img/program/extra-stage.jpg",
       title: "별별스테이지",
       desc: "안국사에서 펼쳐지는 별별스테이지",
       place: "안국사",
@@ -153,7 +153,7 @@ const programs = {
       time: "10.16.(금) ~ 18.(일)",
     },
     {
-      comingSoon: true,
+      img: "./img/program/extra-exhibit.jpg",
       title: "강감찬 상설 전시",
       desc: "고려의 전성기를 열었던 명장 강감찬 장군을 만날 수 있는 곳",
       place: "강감찬전시관",

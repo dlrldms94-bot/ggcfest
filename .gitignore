@@ -5,3 +5,4 @@ node_modules/
 .env
 .env.*
 img/program/[0-9].*/
+img/program/*.png
