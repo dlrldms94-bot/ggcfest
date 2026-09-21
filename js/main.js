@@ -6,6 +6,7 @@ const programs = {
       desc: "10주년 기념 도심형 역사문화축제, 강감찬축제의 어제와 오늘을 통해 미래 전략을 이야기하는 학술대회",
       place: "서울시민대학",
       time: "10.16.(금) 14:00 – 17:00",
+      link: "https://docs.google.com/forms/d/e/1FAIpQLSfgUefJ4M4aKMUve0inRMXbH0SIgfALJn4zgnaNsVrFzzoSWw/viewform",
     },
     {
       img: "./img/program/special-performance.jpg",
@@ -14,6 +15,7 @@ const programs = {
       place: "대광장",
       time: "10.17.(토) 19:30 – 20:30",
       comingSoon: true,
+      link: "https://docs.google.com/forms/d/e/1FAIpQLSc6VAQiabWme6Xile3Nc98qdwZOEEX35dXyIQs9u9HAbkznug/viewform",
     },
   ],
   community: [
@@ -217,11 +219,8 @@ const programCards = document.getElementById("programCards");
 const timetableBoard = document.getElementById("timetableBoard");
 const toastEl = document.getElementById("toast");
 
-function renderPrograms(key) {
-  programCards.innerHTML = programs[key]
-    .map(
-      (item) => `
-      <article class="p-card">
+function programCardMarkup(item) {
+  const body = `
         <div class="p-card__media">
           ${item.comingSoon ? `<span class="coming-soon">COMING SOON</span>` : `<img src="${item.img}" alt="${item.title}">`}
         </div>
@@ -232,10 +231,15 @@ function renderPrograms(key) {
             <span><img src="./img/location.png" alt=""> ${item.place}</span>
             <span><img src="./img/date.png" alt=""> ${item.time}</span>
           </div>
-        </div>
-      </article>`
-    )
-    .join("");
+        </div>`;
+  if (item.link) {
+    return `<a class="p-card p-card--link" href="${item.link}" target="_blank" rel="noopener noreferrer">${body}</a>`;
+  }
+  return `<article class="p-card">${body}</article>`;
+}
+
+function renderPrograms(key) {
+  programCards.innerHTML = programs[key].map(programCardMarkup).join("");
 }
 
 function renderTimetable(key) {

@@ -465,6 +465,19 @@ a { text-decoration: none; }
   background: rgba(48, 42, 92, 0.55);
   color: #fff;
 }
+a.p-card {
+  display: block;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+a.p-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(10, 8, 32, 0.28);
+}
+a.p-card:focus-visible {
+  outline: 2px solid var(--gold-2);
+  outline-offset: 3px;
+}
 .p-card__media {
   position: relative;
   height: 190px;
