@@ -15,7 +15,6 @@ const programs = {
       place: "대광장",
       time: "10.17.(토) 19:30 – 20:30",
       comingSoon: true,
-      link: "https://docs.google.com/forms/d/e/1FAIpQLSc6VAQiabWme6Xile3Nc98qdwZOEEX35dXyIQs9u9HAbkznug/viewform",
     },
   ],
   community: [
@@ -85,6 +84,7 @@ const programs = {
       desc: "고려 이야기꾼과 함께 강감찬 장군의 탄생과 업적을 들으며 우주 별을 관측하는 투어 프로그램",
       place: "생가터 ~ 천문대",
       time: "10.16.(금) ~ 18.(일)",
+      link: "https://docs.google.com/forms/d/e/1FAIpQLSc6VAQiabWme6Xile3Nc98qdwZOEEX35dXyIQs9u9HAbkznug/viewform",
     },
     {
       img: "./img/program/history-rite.jpg",
