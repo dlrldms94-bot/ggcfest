@@ -371,11 +371,13 @@ function resetReserveModal() {
 function openReserveModal() {
   resetReserveModal();
   modal.hidden = false;
+  document.body.classList.add("modal-open");
   header.classList.remove("is-open");
 }
 
 function closeReserveModal() {
   modal.hidden = true;
+  document.body.classList.remove("modal-open");
   resetReserveModal();
 }
 

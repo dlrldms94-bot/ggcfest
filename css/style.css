@@ -21,6 +21,10 @@ html {
   scroll-padding-top: var(--header-h);
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
 body {
   margin: 0;
   color: var(--ink);
@@ -935,7 +939,12 @@ a.p-card:focus-visible {
   inset: 0;
   z-index: 80;
   display: grid;
-  place-items: center;
+  align-items: start;
+  justify-items: center;
+  padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 .modal__backdrop {
   position: absolute;
@@ -945,12 +954,14 @@ a.p-card:focus-visible {
 .modal__panel {
   position: relative;
   width: min(460px, calc(100% - 32px));
-  max-height: min(92vh, 920px);
+  max-height: none;
   overflow: visible;
-  padding: 36px 32px 28px;
+  margin: auto 0;
+  padding: 28px 22px 24px;
   background: #1c1848;
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  touch-action: pan-y;
 }
 .modal__panel.is-summons {
   width: min(440px, calc(100% - 24px));
@@ -977,9 +988,12 @@ a.p-card:focus-visible {
   min-height: calc(100vh - var(--header-h));
   margin-top: var(--header-h);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: 32px 16px 48px;
+  padding: 24px 16px max(48px, env(safe-area-inset-bottom));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 .apply-panel {
   width: min(460px, calc(100% - 32px));
@@ -1059,11 +1073,9 @@ a.p-card:focus-visible {
 .reserve-form-scroll {
   display: grid;
   gap: 20px;
-  max-height: min(calc(92vh - 120px), 560px);
+  max-height: none;
   padding: 2px 2px 4px;
-  overflow-x: visible;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  overflow: visible;
 }
 .reserve-form label {
   display: grid;
@@ -1213,9 +1225,7 @@ a.p-card:focus-visible {
 .apply-panel.modal__panel {
   max-height: none;
   overflow: visible;
-}
-.apply-panel .reserve-form-scroll {
-  max-height: min(calc(100vh - var(--header-h) - 120px), 560px);
+  margin: 0 auto;
 }
 .toast {
   position: fixed;
