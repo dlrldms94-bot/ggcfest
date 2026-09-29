@@ -5,7 +5,7 @@ const db = require("./db");
 const app = express();
 const PORT = process.env.PORT || 3000;
 const ROOT = path.join(__dirname, "..");
-const VISIT_DAYS = ["10월 16일 (금)", "10월 17일 (토)", "10월 18일 (일)"];
+const { VISIT_DAYS, PROGRAMS } = require("./reservation-options");
 
 app.use(express.json({ limit: "32kb" }));
 
@@ -36,6 +36,20 @@ function formatPhone(digits) {
   return digits;
 }
 
+function normalizeBirth(value) {
+  return String(value || "").trim();
+}
+
+function isValidBirth(value) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const date = new Date(value + "T12:00:00");
+  if (Number.isNaN(date.getTime())) return false;
+  const now = new Date();
+  if (date > now) return false;
+  const year = date.getFullYear();
+  return year >= 1900 && year <= now.getFullYear();
+}
+
 app.get(
   "/api/health",
   handleAsync(async function (req, res) {
@@ -49,7 +63,9 @@ app.post(
   handleAsync(async function (req, res) {
     const name = normalizeName(req.body && req.body.name);
     const phone = normalizePhone(req.body && req.body.phone);
+    const birthDate = normalizeBirth(req.body && req.body.birth);
     const visitDay = String((req.body && req.body.day) || "").trim();
+    const program = String((req.body && req.body.program) || "").trim();
 
     if (!name) {
       return res.status(400).json({ message: "이름을 입력해 주세요." });
@@ -57,14 +73,22 @@ app.post(
     if (phone.length < 10 || phone.length > 11) {
       return res.status(400).json({ message: "연락처를 확인해 주세요." });
     }
+    if (!isValidBirth(birthDate)) {
+      return res.status(400).json({ message: "생년월일을 확인해 주세요." });
+    }
     if (VISIT_DAYS.indexOf(visitDay) === -1) {
       return res.status(400).json({ message: "방문 희망일을 선택해 주세요." });
+    }
+    if (PROGRAMS.indexOf(program) === -1) {
+      return res.status(400).json({ message: "참여 예정 프로그램을 선택해 주세요." });
     }
 
     const reservation = await db.createReservation({
       name: name,
       phone: formatPhone(phone),
+      birthDate: birthDate,
       visitDay: visitDay,
+      program: program,
     });
 
     res.status(201).json({ ok: true, id: reservation.id });

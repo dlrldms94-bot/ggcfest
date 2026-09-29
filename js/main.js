@@ -361,6 +361,11 @@ function resetReserveModal() {
   }
   summonsPreview.removeAttribute("src");
   summonsDownload.removeAttribute("href");
+  const reserveForm = document.getElementById("reserveForm");
+  if (reserveForm) {
+    reserveForm.reset();
+    resetReserveFormFields(reserveForm);
+  }
 }
 
 function openReserveModal() {
@@ -427,18 +432,14 @@ document.getElementById("reserveForm").addEventListener("submit", async (e) => {
   if (!reserveOpen) return;
   const form = e.target;
   const submit = form.querySelector("button[type='submit']");
-  const data = new FormData(form);
-  const name = String(data.get("name") || "").trim();
+  const payload = readReservationForm(form);
+  const name = payload.name;
   submit.disabled = true;
   try {
     fetch("/api/reservations", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: name,
-        phone: data.get("phone"),
-        day: data.get("day"),
-      }),
+      body: JSON.stringify(payload),
     }).catch(() => {});
 
     const blob = await createSummonsImage(name);

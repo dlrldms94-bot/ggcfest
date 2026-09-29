@@ -39,7 +39,7 @@ function filteredItems() {
   return items.filter((item) => {
     if (day && item.visitDay !== day) return false;
     if (!query) return true;
-    const hay = (item.name + item.phone).replace(/\s+/g, "").toLowerCase();
+    const hay = (item.name + item.phone + item.birthDate + item.program).replace(/\s+/g, "").toLowerCase();
     return hay.indexOf(query) !== -1;
   });
 }
@@ -48,7 +48,7 @@ function renderRows() {
   const visible = filteredItems();
   countEl.textContent = visible.length + "건" + (visible.length !== items.length ? " / 전체 " + items.length + "건" : "");
   if (!visible.length) {
-    rowsEl.innerHTML = '<tr><td colspan="5">신청 내역이 없습니다.</td></tr>';
+    rowsEl.innerHTML = '<tr><td colspan="7">신청 내역이 없습니다.</td></tr>';
     return;
   }
   rowsEl.innerHTML = visible.map((item, index) => {
@@ -57,7 +57,9 @@ function renderRows() {
       "<td>" + (visible.length - index) + "</td>" +
       "<td>" + escapeHtml(item.name) + "</td>" +
       "<td>" + escapeHtml(item.phone) + "</td>" +
+      "<td>" + escapeHtml(item.birthDate) + "</td>" +
       "<td>" + escapeHtml(item.visitDay) + "</td>" +
+      "<td>" + escapeHtml(item.program) + "</td>" +
       "<td>" + escapeHtml(formatTime(item.createdAt)) + "</td>" +
       "</tr>"
     );
@@ -98,13 +100,15 @@ function csvEscape(value) {
 
 function downloadCsv() {
   const visible = filteredItems();
-  const lines = [["번호", "이름", "연락처", "방문 희망일", "신청 일시"].join(",")];
+  const lines = [["번호", "이름", "연락처", "생년월일", "방문 희망일", "참여 프로그램", "신청 일시"].join(",")];
   visible.forEach((item, index) => {
     lines.push([
       visible.length - index,
       csvEscape(item.name),
       csvEscape(item.phone),
+      csvEscape(item.birthDate),
       csvEscape(item.visitDay),
+      csvEscape(item.program),
       csvEscape(formatTime(item.createdAt)),
     ].join(","));
   });
@@ -112,7 +116,7 @@ function downloadCsv() {
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
-  link.download = "관악강감찬축제-사전신청.csv";
+  link.download = "관악강감찬축제-사전예약.csv";
   link.click();
   URL.revokeObjectURL(url);
 }

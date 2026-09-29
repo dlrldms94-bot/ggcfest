@@ -30,6 +30,12 @@ async function initDatabase() {
       created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `);
+  await pool.query(`
+    ALTER TABLE reservations ADD COLUMN IF NOT EXISTS birth_date TEXT
+  `);
+  await pool.query(`
+    ALTER TABLE reservations ADD COLUMN IF NOT EXISTS program TEXT
+  `);
 
   console.log("[db] PostgreSQL 연결 완료");
 }
@@ -46,7 +52,9 @@ async function createReservation(data) {
       id: memoryReservations.length + 1,
       name: data.name,
       phone: data.phone,
+      birthDate: data.birthDate,
       visitDay: data.visitDay,
+      program: data.program,
       createdAt: new Date().toISOString(),
     };
     memoryReservations.push(reservation);
@@ -54,17 +62,19 @@ async function createReservation(data) {
   }
 
   const result = await pool.query(
-    `INSERT INTO reservations (name, phone, visit_day)
-     VALUES ($1, $2, $3)
-     RETURNING id, name, phone, visit_day, created_at`,
-    [data.name, data.phone, data.visitDay]
+    `INSERT INTO reservations (name, phone, birth_date, visit_day, program)
+     VALUES ($1, $2, $3, $4, $5)
+     RETURNING id, name, phone, birth_date, visit_day, program, created_at`,
+    [data.name, data.phone, data.birthDate, data.visitDay, data.program]
   );
   const row = result.rows[0];
   return {
     id: row.id,
     name: row.name,
     phone: row.phone,
+    birthDate: row.birth_date,
     visitDay: row.visit_day,
+    program: row.program,
     createdAt: row.created_at,
   };
 }
@@ -75,7 +85,7 @@ async function listReservations() {
   }
 
   const result = await pool.query(
-    `SELECT id, name, phone, visit_day, created_at
+    `SELECT id, name, phone, birth_date, visit_day, program, created_at
      FROM reservations
      ORDER BY created_at DESC, id DESC`
   );
@@ -84,7 +94,9 @@ async function listReservations() {
       id: row.id,
       name: row.name,
       phone: row.phone,
+      birthDate: row.birth_date || "",
       visitDay: row.visit_day,
+      program: row.program || "",
       createdAt: row.created_at,
     };
   });
