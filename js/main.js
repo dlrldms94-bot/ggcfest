@@ -14,7 +14,6 @@ const programs = {
       desc: "전통연희와 현대무용, 라이브 연주와 공중 불꽃 퍼포먼스가 어우러지는 60분간의 대형 야외 스펙터클. 강감찬의 이름에 담긴 판단과 용기, 연대와 공동체 정신을 관객과 함께 나누는 10주년 대표 넌버벌 퍼포먼스",
       place: "대광장",
       time: "10.17.(토) 19:30 – 20:30",
-      comingSoon: true,
     },
   ],
   community: [
@@ -222,7 +221,8 @@ const toastEl = document.getElementById("toast");
 function programCardMarkup(item) {
   const body = `
         <div class="p-card__media">
-          ${item.comingSoon ? `<span class="coming-soon">COMING SOON</span>` : `<img src="${item.img}" alt="${item.title}">`}
+          <img src="${item.img}" alt="${item.title}">
+          ${item.comingSoon ? `<span class="coming-soon">COMING SOON</span>` : ""}
         </div>
         <div class="p-card__body">
           <h3>${item.title}</h3>
