@@ -1133,94 +1133,19 @@ a.p-card:focus-visible {
   padding: 11px 36px 11px 10px;
   font-size: 14px;
 }
-.reserve-picker {
-  position: relative;
+.reserve-birth select:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
 }
-.reserve-picker__trigger {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  width: 100%;
-  min-height: 44px;
-  padding: 11px 14px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.06);
-  color: #fff;
-  font: inherit;
-  line-height: 1.35;
-  cursor: pointer;
-  text-align: left;
-}
-.reserve-picker__trigger:focus,
-.reserve-picker.is-open .reserve-picker__trigger {
-  outline: none;
-  border-color: rgba(244, 229, 107, 0.85);
-  box-shadow: inset 0 0 0 1px rgba(244, 229, 107, 0.45);
-}
-.reserve-picker__label {
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.reserve-picker__label.is-placeholder {
-  color: rgba(255, 255, 255, 0.55);
-}
-.reserve-picker__icon {
-  flex-shrink: 0;
-  width: 12px;
-  height: 12px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2.5 4.5L6 8l3.5-3.5' stroke='%23ffffff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 12px 12px;
-  transition: transform 0.15s ease;
-}
-.reserve-picker.is-open .reserve-picker__icon {
-  transform: rotate(180deg);
-}
-.reserve-picker__menu {
-  position: absolute;
-  z-index: 120;
-  left: 0;
-  right: 0;
-  top: calc(100% + 6px);
-  max-height: 240px;
-  overflow-x: hidden;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  margin: 0;
-  padding: 6px 0;
-  list-style: none;
-  border-radius: 8px;
-  background: #2a2460;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
-  -webkit-overflow-scrolling: touch;
-  touch-action: pan-y;
-}
-.reserve-picker__option {
+.reserve-birth-hint {
   display: block;
-  width: 100%;
-  padding: 11px 14px;
-  border: 0;
-  background: transparent;
-  color: #fff;
-  text-align: left;
-  font: inherit;
-  line-height: 1.35;
-  cursor: pointer;
+  margin-top: 8px;
+  color: rgba(255, 255, 255, 0.52);
+  font-size: 12px;
+  line-height: 1.4;
 }
-.reserve-picker__option:hover,
-.reserve-picker__option:focus {
-  background: rgba(255, 255, 255, 0.08);
-  outline: none;
-}
-.reserve-picker__option.is-selected {
-  background: rgba(244, 229, 107, 0.14);
+.reserve-birth-hint[hidden] {
+  display: none;
 }
 .apply-panel.modal__panel {
   max-height: none;
@@ -1306,6 +1231,13 @@ a.p-card:focus-visible {
   .header.is-open .gnb { display: flex; }
   .mission-grid { grid-template-columns: 1fr; }
   .guide, .program, .timetable, .event, .points, .location { padding: 80px 0; }
+  .reserve-form input,
+  .reserve-form select {
+    font-size: 16px;
+  }
+  .modal__panel {
+    padding: 24px 18px 20px;
+  }
 }
 
 .admin-page { min-height: 100vh; background: #120f2e; }

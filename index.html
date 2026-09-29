@@ -397,30 +397,34 @@
                 <option value="11">11월</option>
                 <option value="12">12월</option>
               </select>
-              <select name="birthDay" required aria-label="일">
+              <select name="birthDay" required aria-label="일" disabled>
                 <option value="">일</option>
               </select>
             </div>
+            <span class="reserve-birth-hint">년·월을 먼저 선택하면 일을 고를 수 있습니다.</span>
           </label>
           <label>방문 희망일
-            <div class="reserve-picker" data-picker-options="visit" data-placeholder="선택">
-              <input type="hidden" name="day" value="" required>
-              <button type="button" class="reserve-picker__trigger" aria-haspopup="listbox" aria-expanded="false">
-                <span class="reserve-picker__label is-placeholder">선택</span>
-                <span class="reserve-picker__icon" aria-hidden="true"></span>
-              </button>
-              <div class="reserve-picker__menu" role="listbox" hidden></div>
-            </div>
+            <select name="day" required>
+              <option value="">선택</option>
+              <option>10월 16일 (금)</option>
+              <option>10월 17일 (토)</option>
+              <option>10월 18일 (일)</option>
+            </select>
           </label>
           <label>참여 예정 프로그램
-            <div class="reserve-picker" data-picker-options="program" data-placeholder="선택">
-              <input type="hidden" name="program" value="" required>
-              <button type="button" class="reserve-picker__trigger" aria-haspopup="listbox" aria-expanded="false">
-                <span class="reserve-picker__label is-placeholder">선택</span>
-                <span class="reserve-picker__icon" aria-hidden="true"></span>
-              </button>
-              <div class="reserve-picker__menu" role="listbox" hidden></div>
-            </div>
+            <select name="program" required>
+              <option value="">선택</option>
+              <option>10주년기념특별공연</option>
+              <option>21동네한바퀴</option>
+              <option>고려장터</option>
+              <option>시민풍류제</option>
+              <option>벽란도21</option>
+              <option>청년드림콘서트</option>
+              <option>강감찬토크쇼퀴즈쇼</option>
+              <option>생활예술페스티벌</option>
+              <option>10주년기념학술대회</option>
+              <option>리딩데이: 로열인문학</option>
+            </select>
           </label>
           </div>
           <button type="submit" class="btn-reserve btn-reserve--block">소환장 받기</button>
