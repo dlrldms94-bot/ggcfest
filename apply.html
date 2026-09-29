@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>사전신청 | 2026 관악강감찬축제</title>
+  <meta name="description" content="2026 관악강감찬축제 사전신청. 이름을 남기면 강감찬 소환장을 받을 수 있습니다.">
+  <meta name="theme-color" content="#14183f">
+  <link rel="canonical" href="https://www.ggcfest.com/apply.html">
+  <link rel="icon" href="https://www.ggcfest.com/img/ggc.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">본문 바로가기</a>
+
+  <header class="header header--apply" id="header">
+    <div class="header__inner">
+      <a class="logo" href="./index.html">
+        <img src="./img/logo.png" alt="2026 관악강감찬축제 10주년">
+      </a>
+      <a class="btn-reserve" href="./index.html">축제 홈</a>
+    </div>
+  </header>
+
+  <main id="main" class="apply-page">
+    <article class="modal__panel apply-panel" id="applyPanel">
+      <div id="applyFormView">
+        <p class="eyebrow">PRE-APPLY</p>
+        <h1 class="apply-panel__title">사전신청하기</h1>
+        <p class="modal__lead">이름을 남기면 강감찬 소환장에 새겨집니다. 이미지를 저장해 축제 현장에서 인증해 주세요.</p>
+        <form class="reserve-form" id="applyForm">
+          <label>이름<input type="text" name="name" required autocomplete="name" maxlength="8" placeholder="홍길동"></label>
+          <label>연락처<input type="tel" name="phone" required inputmode="tel" placeholder="010-0000-0000"></label>
+          <label>방문 희망일
+            <select name="day" required>
+              <option value="">선택</option>
+              <option>10월 16일 (금)</option>
+              <option>10월 17일 (토)</option>
+              <option>10월 18일 (일)</option>
+            </select>
+          </label>
+          <button type="submit" class="btn-reserve btn-reserve--block">소환장 받기</button>
+        </form>
+      </div>
+      <div class="summons-result" id="summonsResult" hidden>
+        <h2>강감찬 소환장이 도착했습니다</h2>
+        <p class="modal__lead">이미지를 저장한 뒤, 축제 현장에서 참여 인증에 사용해 주세요.</p>
+        <img class="summons-preview" id="summonsPreview" alt="강감찬 소환장">
+        <a class="btn-reserve btn-reserve--block" id="summonsDownload" download="강감찬소환장.jpg">소환장 이미지 저장</a>
+        <button type="button" class="apply-panel__again" data-reset-apply>다시 신청하기</button>
+      </div>
+    </article>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="./js/apply.js"></script>
+</body>
+</html>
