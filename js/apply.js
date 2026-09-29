@@ -1,5 +1,7 @@
+const reserveOpen = window.GGCFEST_CONFIG?.reserveOpen === true;
 const toastEl = document.getElementById("toast");
 const applyPanel = document.getElementById("applyPanel");
+const applySoonView = document.getElementById("applySoonView");
 const applyFormView = document.getElementById("applyFormView");
 const summonsResult = document.getElementById("summonsResult");
 const summonsPreview = document.getElementById("summonsPreview");
@@ -29,7 +31,9 @@ function toast(msg) {
 }
 
 function resetApplyView() {
+  if (!reserveOpen) return;
   applyFormView.hidden = false;
+  applySoonView.hidden = true;
   summonsResult.hidden = true;
   applyPanel.classList.remove("is-summons");
   if (summonsObjectUrl) {
@@ -82,8 +86,19 @@ async function createSummonsImage(name) {
   return blob;
 }
 
+function initApplyPage() {
+  if (!reserveOpen) {
+    applySoonView.hidden = false;
+    applyFormView.hidden = true;
+    summonsResult.hidden = true;
+    return;
+  }
+  resetApplyView();
+}
+
 document.getElementById("applyForm").addEventListener("submit", async (e) => {
   e.preventDefault();
+  if (!reserveOpen) return;
   const form = e.target;
   const submit = form.querySelector("button[type='submit']");
   const data = new FormData(form);
@@ -123,4 +138,4 @@ document.querySelector("[data-reset-apply]")?.addEventListener("click", (e) => {
   resetApplyView();
 });
 
-resetApplyView();
+initApplyPage();

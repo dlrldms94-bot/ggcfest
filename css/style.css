@@ -215,6 +215,11 @@ a.btn-reserve {
   cursor: pointer;
 }
 .btn-reserve:hover { filter: brightness(1.05); }
+.btn-reserve--closed {
+  opacity: 0.88;
+  cursor: not-allowed;
+}
+.btn-reserve--closed:hover { filter: none; }
 .btn-reserve--block {
   display: block;
   width: 100%;
@@ -923,6 +928,7 @@ a.p-card:focus-visible {
 .reserve-soon[hidden],
 #reserveFormView[hidden],
 #applyFormView[hidden],
+#applySoonView[hidden],
 .summons-result[hidden] { display: none; }
 .modal {
   position: fixed;
