@@ -1157,6 +1157,111 @@ a.p-card:focus-visible {
 .reserve-birth-hint[hidden] {
   display: none;
 }
+.reserve-pick {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+  display: grid;
+  gap: 8px;
+}
+.reserve-pick legend {
+  margin-bottom: 2px;
+  padding: 0;
+  font-size: 13px;
+}
+.reserve-pick__toggle {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 44px;
+  margin: 0;
+  padding: 11px 44px 11px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.06);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2.5 4.5L6 8l3.5-3.5' stroke='%23ffffff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 12px 12px;
+  color: #fff;
+  font: inherit;
+  font-size: 15px;
+  line-height: 1.35;
+  text-align: left;
+  cursor: pointer;
+}
+.reserve-pick__toggle.is-empty {
+  color: rgba(255, 255, 255, 0.55);
+}
+.reserve-pick.is-open .reserve-pick__toggle,
+.reserve-pick__toggle:focus-visible {
+  outline: none;
+  border-color: rgba(244, 229, 107, 0.85);
+  box-shadow: inset 0 0 0 1px rgba(244, 229, 107, 0.45);
+}
+.reserve-pick.is-open .reserve-pick__toggle {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2.5 7.5L6 4l3.5 3.5' stroke='%23ffffff' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+.reserve-pick__value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.reserve-pick__panel {
+  display: grid;
+  gap: 2px;
+  max-height: 240px;
+  overflow: auto;
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  background: #241f58;
+}
+.reserve-pick__panel[hidden] {
+  display: none;
+}
+.reserve-pick__hint {
+  margin: 2px 8px 6px;
+  color: rgba(255, 255, 255, 0.52);
+  font-size: 12px;
+  line-height: 1.4;
+}
+.reserve-form label.reserve-check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  margin: 0;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  font-size: 15px;
+  line-height: 1.35;
+  cursor: pointer;
+}
+.reserve-form .reserve-check input {
+  width: 18px;
+  height: 18px;
+  min-height: 18px;
+  margin: 0;
+  padding: 0;
+  flex: 0 0 auto;
+  accent-color: #f4e56b;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.reserve-form .reserve-check:has(input:checked) {
+  background: rgba(244, 229, 107, 0.14);
+  box-shadow: none;
+}
+.reserve-form .reserve-check:has(input:focus-visible) {
+  box-shadow: inset 0 0 0 1px rgba(244, 229, 107, 0.45);
+}
 .toast {
   position: fixed;
   left: 50%;
@@ -1237,7 +1342,8 @@ a.p-card:focus-visible {
   .mission-grid { grid-template-columns: 1fr; }
   .guide, .program, .timetable, .event, .points, .location { padding: 80px 0; }
   .reserve-form input,
-  .reserve-form select {
+  .reserve-form select,
+  .reserve-pick__toggle {
     font-size: 16px;
   }
   .modal__panel {
@@ -1312,6 +1418,12 @@ a.p-card:focus-visible {
   text-align: left;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   white-space: nowrap;
+}
+.admin-table td:nth-child(5),
+.admin-table td:nth-child(6) {
+  white-space: normal;
+  min-width: 12em;
+  max-width: 22em;
 }
 .admin-table th {
   background: rgba(255, 255, 255, 0.04);

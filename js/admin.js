@@ -37,7 +37,7 @@ function filteredItems() {
   const query = queryEl.value.trim().replace(/\s+/g, "").toLowerCase();
   const day = dayEl.value;
   return items.filter((item) => {
-    if (day && item.visitDay !== day) return false;
+    if (day && String(item.visitDay || "").indexOf(day) === -1) return false;
     if (!query) return true;
     const hay = (item.name + item.phone + item.birthDate + item.program).replace(/\s+/g, "").toLowerCase();
     return hay.indexOf(query) !== -1;

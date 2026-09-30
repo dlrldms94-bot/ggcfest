@@ -435,6 +435,16 @@ document.getElementById("reserveForm").addEventListener("submit", async (e) => {
   const form = e.target;
   const submit = form.querySelector("button[type='submit']");
   const payload = readReservationForm(form);
+  if (!payload.day.length) {
+    toast("방문 희망일을 하나 이상 선택해 주세요.");
+    openReservePicker(form, "day");
+    return;
+  }
+  if (!payload.program.length) {
+    toast("참여 예정 프로그램을 하나 이상 선택해 주세요.");
+    openReservePicker(form, "program");
+    return;
+  }
   const name = payload.name;
   submit.disabled = true;
   try {
@@ -461,7 +471,8 @@ document.getElementById("reserveForm").addEventListener("submit", async (e) => {
   }
 });
 document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") closeReserveModal();
+  if (e.key !== "Escape" || e.reservePickerWasOpen) return;
+  closeReserveModal();
 });
 
 function rnd(seed) {

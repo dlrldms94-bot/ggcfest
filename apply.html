@@ -64,29 +64,37 @@
             </div>
             <span class="reserve-birth-hint">년·월을 먼저 선택하면 일을 고를 수 있습니다.</span>
           </label>
-          <label>방문 희망일
-            <select name="day" required>
-              <option value="">선택</option>
-              <option>10월 16일 (금)</option>
-              <option>10월 17일 (토)</option>
-              <option>10월 18일 (일)</option>
-            </select>
-          </label>
-          <label>참여 예정 프로그램
-            <select name="program" required>
-              <option value="">선택</option>
-              <option>10주년기념특별공연</option>
-              <option>21동네한바퀴</option>
-              <option>고려장터</option>
-              <option>시민풍류제</option>
-              <option>벽란도21</option>
-              <option>청년드림콘서트</option>
-              <option>강감찬토크쇼퀴즈쇼</option>
-              <option>생활예술페스티벌</option>
-              <option>10주년기념학술대회</option>
-              <option>리딩데이: 로열인문학</option>
-            </select>
-          </label>
+          <fieldset class="reserve-pick" data-pick="day">
+            <legend>방문 희망일</legend>
+            <button type="button" class="reserve-pick__toggle is-empty" aria-expanded="false" aria-controls="applyDayList">
+              <span class="reserve-pick__value">선택</span>
+            </button>
+            <div class="reserve-pick__panel" id="applyDayList" hidden>
+              <p class="reserve-pick__hint">여러 날 선택할 수 있어요.</p>
+              <label class="reserve-check"><input type="checkbox" name="day" value="10월 16일 (금)"><span>10월 16일 (금)</span></label>
+              <label class="reserve-check"><input type="checkbox" name="day" value="10월 17일 (토)"><span>10월 17일 (토)</span></label>
+              <label class="reserve-check"><input type="checkbox" name="day" value="10월 18일 (일)"><span>10월 18일 (일)</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="reserve-pick" data-pick="program">
+            <legend>참여 예정 프로그램</legend>
+            <button type="button" class="reserve-pick__toggle is-empty" aria-expanded="false" aria-controls="applyProgramList">
+              <span class="reserve-pick__value">선택</span>
+            </button>
+            <div class="reserve-pick__panel" id="applyProgramList" hidden>
+              <p class="reserve-pick__hint">여러 개 선택할 수 있어요.</p>
+              <label class="reserve-check"><input type="checkbox" name="program" value="10주년기념특별공연"><span>10주년기념특별공연</span></label>
+              <label class="reserve-check"><input type="checkbox" name="program" value="21동네한바퀴"><span>21동네한바퀴</span></label>
+              <label class="reserve-check"><input type="checkbox" name="program" value="고려장터"><span>고려장터</span></label>
+              <label class="reserve-check"><input type="checkbox" name="program" value="시민풍류제"><span>시민풍류제</span></label>
+              <label class="reserve-check"><input type="checkbox" name="program" value="벽란도21"><span>벽란도21</span></label>
+              <label class="reserve-check"><input type="checkbox" name="program" value="청년드림콘서트"><span>청년드림콘서트</span></label>
+              <label class="reserve-check"><input type="checkbox" name="program" value="강감찬토크쇼퀴즈쇼"><span>강감찬토크쇼퀴즈쇼</span></label>
+              <label class="reserve-check"><input type="checkbox" name="program" value="생활예술페스티벌"><span>생활예술페스티벌</span></label>
+              <label class="reserve-check"><input type="checkbox" name="program" value="10주년기념학술대회"><span>10주년기념학술대회</span></label>
+              <label class="reserve-check"><input type="checkbox" name="program" value="리딩데이: 로열인문학"><span>리딩데이: 로열인문학</span></label>
+            </div>
+          </fieldset>
           </div>
           <button type="submit" class="btn-reserve btn-reserve--block">소환장 받기</button>
         </form>

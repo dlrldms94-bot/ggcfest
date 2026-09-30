@@ -79,8 +79,76 @@ function resetReserveFormFields(form) {
   syncBirthDayState(form);
 }
 
+function setReservePickerOpen(root, open) {
+  if (!root) return;
+  const toggle = root.querySelector(".reserve-pick__toggle");
+  const panel = root.querySelector(".reserve-pick__panel");
+  if (!toggle || !panel) return;
+  if (open) {
+    document.querySelectorAll(".reserve-pick.is-open").forEach((other) => {
+      if (other !== root) setReservePickerOpen(other, false);
+    });
+  }
+  root.classList.toggle("is-open", open);
+  toggle.setAttribute("aria-expanded", open ? "true" : "false");
+  panel.hidden = !open;
+  if (open) panel.scrollIntoView({ block: "nearest" });
+}
+
+function updateReservePickerSummary(root) {
+  const name = root.dataset.pick;
+  const form = root.closest("form");
+  if (!name || !form) return;
+  const selected = [...form.querySelectorAll('input[name="' + name + '"]:checked')].map((el) => el.value);
+  const value = root.querySelector(".reserve-pick__value");
+  const toggle = root.querySelector(".reserve-pick__toggle");
+  if (!value || !toggle) return;
+  if (!selected.length) {
+    value.textContent = "선택";
+    toggle.classList.add("is-empty");
+    return;
+  }
+  toggle.classList.remove("is-empty");
+  value.textContent = selected.length === 1 ? selected[0] : selected[0] + " 외 " + (selected.length - 1) + "개";
+}
+
+function openReservePicker(form, name) {
+  const root = form.querySelector('.reserve-pick[data-pick="' + name + '"]');
+  if (!root) return;
+  setReservePickerOpen(root, true);
+  const toggle = root.querySelector(".reserve-pick__toggle");
+  if (toggle) toggle.focus();
+}
+
+function initReservePickers(form) {
+  form.querySelectorAll(".reserve-pick").forEach((root) => {
+    if (root.dataset.pickerReady === "1") return;
+    root.dataset.pickerReady = "1";
+    const name = root.dataset.pick;
+    const toggle = root.querySelector(".reserve-pick__toggle");
+    toggle.addEventListener("click", () => {
+      setReservePickerOpen(root, !root.classList.contains("is-open"));
+    });
+    root.addEventListener("change", (event) => {
+      if (event.target && event.target.name === name) updateReservePickerSummary(root);
+    });
+    updateReservePickerSummary(root);
+  });
+  if (form.dataset.pickerResetReady === "1") return;
+  form.dataset.pickerResetReady = "1";
+  form.addEventListener("reset", () => {
+    setTimeout(() => {
+      form.querySelectorAll(".reserve-pick").forEach((root) => {
+        updateReservePickerSummary(root);
+        setReservePickerOpen(root, false);
+      });
+    }, 0);
+  });
+}
+
 function initReserveForm(form) {
   initBirthFields(form);
+  initReservePickers(form);
 }
 
 function validateBirthBeforeSubmit(form) {
@@ -112,5 +180,21 @@ function initAllReserveForms() {
     );
   });
 }
+
+document.addEventListener("click", (event) => {
+  document.querySelectorAll(".reserve-pick.is-open").forEach((root) => {
+    if (!root.contains(event.target)) setReservePickerOpen(root, false);
+  });
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key !== "Escape") return;
+  const open = document.querySelector(".reserve-pick.is-open");
+  if (!open) return;
+  setReservePickerOpen(open, false);
+  const toggle = open.querySelector(".reserve-pick__toggle");
+  if (toggle) toggle.focus();
+  event.reservePickerWasOpen = true;
+});
 
 initAllReserveForms();

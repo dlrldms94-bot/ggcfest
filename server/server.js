@@ -50,6 +50,20 @@ function isValidBirth(value) {
   return year >= 1900 && year <= now.getFullYear();
 }
 
+function normalizeChoices(value, allowed) {
+  const list = Array.isArray(value) ? value : String(value || "").split(",");
+  const seen = {};
+  const chosen = [];
+  for (let i = 0; i < list.length; i += 1) {
+    const name = String(list[i] || "").trim();
+    if (!name || seen[name]) continue;
+    if (allowed.indexOf(name) === -1) return null;
+    seen[name] = true;
+    chosen.push(name);
+  }
+  return chosen;
+}
+
 app.get(
   "/api/health",
   handleAsync(async function (req, res) {
@@ -64,8 +78,8 @@ app.post(
     const name = normalizeName(req.body && req.body.name);
     const phone = normalizePhone(req.body && req.body.phone);
     const birthDate = normalizeBirth(req.body && req.body.birth);
-    const visitDay = String((req.body && req.body.day) || "").trim();
-    const program = String((req.body && req.body.program) || "").trim();
+    const visitDays = normalizeChoices(req.body && req.body.day, VISIT_DAYS);
+    const programs = normalizeChoices(req.body && req.body.program, PROGRAMS);
 
     if (!name) {
       return res.status(400).json({ message: "이름을 입력해 주세요." });
@@ -76,19 +90,25 @@ app.post(
     if (!isValidBirth(birthDate)) {
       return res.status(400).json({ message: "생년월일을 확인해 주세요." });
     }
-    if (VISIT_DAYS.indexOf(visitDay) === -1) {
-      return res.status(400).json({ message: "방문 희망일을 선택해 주세요." });
+    if (!visitDays) {
+      return res.status(400).json({ message: "방문 희망일을 확인해 주세요." });
     }
-    if (PROGRAMS.indexOf(program) === -1) {
-      return res.status(400).json({ message: "참여 예정 프로그램을 선택해 주세요." });
+    if (!visitDays.length) {
+      return res.status(400).json({ message: "방문 희망일을 하나 이상 선택해 주세요." });
+    }
+    if (!programs) {
+      return res.status(400).json({ message: "참여 예정 프로그램을 확인해 주세요." });
+    }
+    if (!programs.length) {
+      return res.status(400).json({ message: "참여 예정 프로그램을 하나 이상 선택해 주세요." });
     }
 
     const reservation = await db.createReservation({
       name: name,
       phone: formatPhone(phone),
       birthDate: birthDate,
-      visitDay: visitDay,
-      program: program,
+      visitDay: visitDays.join(", "),
+      program: programs.join(", "),
     });
 
     res.status(201).json({ ok: true, id: reservation.id });
@@ -127,6 +147,11 @@ app.get(
     res.json({ ok: true, total: items.length, items: items });
   })
 );
+
+app.use("/data", function (req, res, next) {
+  res.set("Cache-Control", "no-cache");
+  next();
+});
 
 app.use(express.static(ROOT));
 

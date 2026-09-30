@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>별동대 스마트 가이드 | 2026 관악강감찬축제</title>
+  <meta name="description" content="2026 관악강감찬축제 현장 안내. 프로그램 지도, 화장실·의무실·분실물, 오늘의 일정을 휴대폰에서 확인하세요.">
+  <meta name="theme-color" content="#fbf6ea">
+  <meta name="apple-mobile-web-app-title" content="별동대 가이드">
+  <link rel="canonical" href="https://www.ggcfest.com/guide/">
+  <link rel="icon" href="https://www.ggcfest.com/img/ggc.png">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:url" content="https://www.ggcfest.com/guide/">
+  <meta property="og:title" content="별동대 스마트 가이드 | 2026 관악강감찬축제">
+  <meta property="og:description" content="행사장 프로그램 지도, 화장실·의무실·분실물, 오늘의 일정.">
+  <meta property="og:image" content="https://www.ggcfest.com/img/og.jpg">
+  <script>
+    try {
+      if (localStorage.getItem("ggcGuideLargeText") === "1") {
+        document.documentElement.classList.add("is-large");
+      }
+    } catch (e) {}
+  </script>
+  <link rel="stylesheet" href="../css/guide.css?v=4">
+</head>
+<body>
+  <div class="guide-app">
+    <a class="skip-link" href="#main">본문 바로가기</a>
+
+    <header class="top">
+      <a class="brand" href="#home">
+        <img class="brand__face" src="../img/guide-mascot.png" alt="">
+        <h1 class="brand__name">별동대 스마트 가이드</h1>
+      </a>
+      <a class="icon-btn" href="#home" aria-label="홈">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5z"></path>
+        </svg>
+      </a>
+      <button class="icon-btn" id="menuBtn" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="drawer">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 7h16M4 12h16M4 17h16"></path>
+        </svg>
+      </button>
+    </header>
+
+    <main id="main">
+      <section data-view="home" id="view-home">
+        <p class="eyebrow">강감찬과 함께하는 축제</p>
+        <div class="hello">
+          <div class="hello__bubble">
+            <strong>반가워요!</strong>
+            <p>어디로 안내해 드릴까요?</p>
+          </div>
+          <img class="hello__char" src="../img/guide-mascot.png" alt="" width="111" height="192">
+        </div>
+        <p class="chat__meta" id="todayLine">2026. 10. 16. – 18. · 낙성대공원</p>
+
+        <nav class="menu" aria-label="가이드 메뉴">
+          <a class="menu-btn" href="#programs">
+            <span class="menu-ico menu-ico--pin" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.2"/></svg>
+            </span>
+            <span class="menu-btn__label">주요 프로그램 지도</span>
+          </a>
+          <a class="menu-btn" href="#facilities">
+            <span class="menu-ico menu-ico--aid" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            </span>
+            <span class="menu-btn__label">화장실 · 의무실 · 분실물</span>
+          </a>
+          <a class="menu-btn" href="#textsize">
+            <span class="menu-ico menu-ico--type" aria-hidden="true">가A</span>
+            <span class="menu-btn__label">큰글씨 안내</span>
+          </a>
+        </nav>
+        <p class="hint">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3 11c.4.4.7 1 .8 1.6V17h4.4v-1.4c.1-.6.4-1.2.8-1.6A6 6 0 0 0 12 3z"/></svg>
+          궁금한 곳을 선택해 주세요!
+        </p>
+        <noscript class="noscript">지도를 보려면 브라우저에서 자바스크립트를 켜 주세요.</noscript>
+      </section>
+
+      <section data-view="programs" id="view-programs" hidden>
+        <header class="view-head">
+          <h2>축제를 한눈에</h2>
+          <p>다양한 프로그램을 지도로 확인해 보세요.</p>
+        </header>
+        <div id="programApp"><p class="status">안내 정보를 불러오고 있어요.</p></div>
+      </section>
+
+      <section data-view="facilities" id="view-facilities" hidden>
+        <header class="view-head">
+          <h2>가까운 편의시설</h2>
+          <p>필요한 시설을 빠르게 찾아보세요.</p>
+        </header>
+        <div id="facilityApp"><p class="status">안내 정보를 불러오고 있어요.</p></div>
+      </section>
+
+      <section data-view="today" id="view-today" hidden>
+        <h2 class="view-title">오늘의 추천</h2>
+        <div id="todayApp"><p class="status">안내 정보를 불러오고 있어요.</p></div>
+      </section>
+
+      <section data-view="route" id="view-route" hidden>
+        <h2 class="view-title">추천 동선</h2>
+        <div id="routeApp"><p class="status">안내 정보를 불러오고 있어요.</p></div>
+      </section>
+
+      <section data-view="textsize" id="view-textsize" hidden>
+        <header class="view-head">
+          <h2>더 크게, 더 편하게</h2>
+          <p>모두가 즐기는 축제를 위해 큰글씨로 안내해요.</p>
+        </header>
+        <label class="toggle">
+          <span class="menu-ico menu-ico--type" aria-hidden="true">가A</span>
+          <span class="toggle__text">
+            <strong>큰글씨 모드</strong>
+            <small>글자와 버튼이 크게 보여요.</small>
+          </span>
+          <input id="largeSwitch" type="checkbox">
+        </label>
+        <nav class="menu" aria-label="큰글씨 메뉴">
+          <a class="menu-btn" href="#programs">
+            <span class="menu-ico menu-ico--pin" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.2"/></svg>
+            </span>
+            <span class="menu-btn__label">프로그램 지도</span>
+          </a>
+          <a class="menu-btn" href="#facilities">
+            <span class="menu-ico menu-ico--aid" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+            </span>
+            <span class="menu-btn__label">편의시설 찾기</span>
+          </a>
+          <a class="menu-btn" href="#home">
+            <span class="menu-ico menu-ico--home" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5z"/></svg>
+            </span>
+            <span class="menu-btn__label">홈으로</span>
+          </a>
+        </nav>
+        <p class="hint">설정은 다음 방문에도 유지돼요.</p>
+      </section>
+    </main>
+
+    <nav class="tabbar" aria-label="하단 메뉴">
+      <a href="#home" data-tab="home">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5z"/></svg>
+        홈
+      </a>
+      <a href="#programs" data-tab="programs">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16"/></svg>
+        프로그램
+      </a>
+      <a href="#facilities" data-tab="facilities">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.2"/></svg>
+        편의시설
+      </a>
+    </nav>
+  </div>
+
+  <div class="drawer" id="drawer" hidden>
+    <button class="drawer__backdrop" type="button" aria-label="메뉴 닫기"></button>
+    <div class="drawer__panel" role="dialog" aria-modal="true" aria-label="메뉴">
+      <button class="drawer__close" type="button">닫기</button>
+      <p class="drawer__label">별동대 스마트 가이드</p>
+      <a href="#home" data-nav="home">홈</a>
+      <a href="#programs" data-nav="programs">주요 프로그램 지도</a>
+      <a href="#facilities" data-nav="facilities">화장실 · 의무실 · 분실물</a>
+      <a href="#today" data-nav="today">오늘의 추천</a>
+      <a href="#route" data-nav="route">추천 동선</a>
+      <a href="#textsize" data-nav="textsize">큰글씨 안내 <em id="largeState"></em></a>
+      <a href="../index.html">축제 홈페이지</a>
+    </div>
+  </div>
+
+  <script src="../js/guide.js?v=3"></script>
+</body>
+</html>

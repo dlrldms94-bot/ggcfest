@@ -1,0 +1,325 @@
+{
+  "_editor": "행사 당일에는 이 파일만 수정한 뒤 다시 배포하면 됩니다. x,y는 안내도 왼쪽 위를 0으로 한 퍼센트입니다. 지도 그림을 바꾸면 img/guide-map.jpg(원본 img/place.jpg)와 핀 좌표를 함께 고치세요. 거리는 map.bounds로 핀 위치를 위도·경도에 환산합니다. 현장에서 안내도 왼쪽 위와 오른쪽 아래의 실제 좌표를 bounds에 넣으면 전체 거리가 맞춰집니다. 한 지점만 실측했다면 그 항목에 lat, lng 숫자를 넣으세요. phone·hours는 의무실·분실물 확정 후 채우세요.",
+  "links": {
+    "program": "../index.html#program",
+    "timetable": "../index.html#timetable",
+    "home": "../index.html"
+  },
+  "map": {
+    "image": "img/guide-map.jpg",
+    "bounds": {
+      "north": 37.473,
+      "south": 37.4698,
+      "west": 126.9574,
+      "east": 126.9616
+    }
+  },
+  "categories": [
+    { "id": "stage", "label": "메인 무대", "color": "#e8d56a" },
+    { "id": "experience", "label": "체험존", "color": "#7ec8ff" },
+    { "id": "history", "label": "역사관", "color": "#d2b4ff" },
+    { "id": "kids", "label": "키즈존", "color": "#8ee0a8" },
+    { "id": "food", "label": "푸드존", "color": "#ffb088" },
+    { "id": "forum", "label": "포럼", "color": "#ffe08a" },
+    { "id": "info", "label": "안내", "color": "#ffb3d9" }
+  ],
+  "zones": [
+    {
+      "id": "anguk",
+      "code": "A",
+      "name": "안국사",
+      "category": "history",
+      "x": 74,
+      "y": 15,
+      "summary": "강감찬 장군을 모신 사당입니다. 제향, 체험, 작은 무대가 이어져요.",
+      "image": "img/program/anguk-little.jpg",
+      "programs": [
+        { "name": "강감찬 장군 추모제향", "time": "10.16.(금) 10:00–12:00", "days": ["2026-10-16"] },
+        { "name": "리틀 강감찬을 찾아라", "time": "10.17.(토) 11:00–18:00", "days": ["2026-10-17"] },
+        { "name": "별별스테이지", "time": "10.17.(토) 12:30–13:00, 16:30–17:00", "days": ["2026-10-17"] },
+        { "name": "리딩데이", "time": "10.17.(토) 13:00–13:30 시상식, 17:00–18:00 로열인문학", "days": ["2026-10-17"] },
+        { "name": "충남 청년 아트페스타 X 관악 청년 예술교류(버스킹)", "time": "10.17.(토) 14:00–16:00", "days": ["2026-10-17"] },
+        { "name": "생활예술페스티벌", "time": "10.18.(일) 11:00–17:00 공연·체험", "days": ["2026-10-18"] },
+        { "name": "고려수서원 〈팝업야외도서관〉", "time": "10.17.(토)–18.(일) 12:00–18:00", "days": ["2026-10-17", "2026-10-18"] }
+      ]
+    },
+    {
+      "id": "exhibit",
+      "code": "C",
+      "name": "전시관",
+      "category": "history",
+      "x": 55,
+      "y": 33,
+      "summary": "강감찬 장군의 삶과 업적을 만나는 상설 전시관입니다.",
+      "image": "img/program/extra-exhibit.jpg",
+      "programs": [
+        { "name": "강감찬 상설 전시", "time": "10.16.(금)–18.(일)", "days": ["2026-10-16", "2026-10-17", "2026-10-18"] }
+      ]
+    },
+    {
+      "id": "mid",
+      "code": "B",
+      "name": "중광장",
+      "category": "kids",
+      "x": 80,
+      "y": 34,
+      "summary": "가족이 함께하는 놀이 체험 공간입니다.",
+      "image": "img/program/history-play.jpg",
+      "programs": [
+        { "name": "별별놀이터", "time": "10.16.(금)–18.(일)", "days": ["2026-10-16", "2026-10-17", "2026-10-18"] }
+      ]
+    },
+    {
+      "id": "garden",
+      "code": "J",
+      "name": "낙성꽃뜰정원",
+      "category": "experience",
+      "x": 12,
+      "y": 58,
+      "summary": "국궁, 10주년 아카이브, 인헌예술제가 열리는 정원입니다.",
+      "image": "img/program/extra-archive.jpg",
+      "programs": [
+        { "name": "관악정 〈강감찬 후예: 국궁의 꽃이다〉", "time": "10.16.(금)–18.(일)", "days": ["2026-10-16", "2026-10-17", "2026-10-18"] },
+        { "name": "10주년 기념 아카이브 전시", "time": "10.16.(금)–18.(일)", "days": ["2026-10-16", "2026-10-17", "2026-10-18"] },
+        { "name": "인헌예술제", "time": "10.17.(토)–18.(일) 시화전, 3대 가족 즉석사진", "days": ["2026-10-17", "2026-10-18"] }
+      ]
+    },
+    {
+      "id": "trail",
+      "code": "D",
+      "name": "산책로",
+      "category": "experience",
+      "x": 81,
+      "y": 46,
+      "summary": "벽란도를 재현한 체험이 이어지는 산책로입니다.",
+      "image": "img/program/community-byeoklando.jpg",
+      "programs": [
+        { "name": "벽란도 21", "time": "10.17.(토)–18.(일)", "days": ["2026-10-17", "2026-10-18"] }
+      ]
+    },
+    {
+      "id": "yard",
+      "code": "E",
+      "name": "열린마당",
+      "category": "food",
+      "x": 39,
+      "y": 54,
+      "summary": "고려장터와 마당 공연이 있는 구역입니다.",
+      "image": "img/program/community-market.jpg",
+      "programs": [
+        { "name": "인헌 휘호대회", "time": "10.16.(금) 13:00–17:00", "days": ["2026-10-16"] },
+        { "name": "세대공감콘서트 〈울림〉", "time": "10.17.(토) 16:00–18:00", "days": ["2026-10-17"] },
+        { "name": "고려장터", "time": "10.16.(금)–18.(일), 금요일은 13:00부터", "days": ["2026-10-16", "2026-10-17", "2026-10-18"] }
+      ]
+    },
+    {
+      "id": "hq",
+      "code": "I",
+      "name": "운영본부",
+      "category": "info",
+      "x": 53,
+      "y": 54,
+      "summary": "축제 안내와 분실물 접수를 하는 운영본부입니다.",
+      "image": "",
+      "programs": []
+    },
+    {
+      "id": "main",
+      "code": "F",
+      "name": "대광장",
+      "category": "stage",
+      "x": 64,
+      "y": 58,
+      "summary": "축제 메인 무대입니다. 무대 앞에 휠체어석 4석이 있어요.",
+      "image": "img/program/special-performance.jpg",
+      "programs": [
+        { "name": "충남청년 아트페스타 X 관악청년 예술교류(공연)", "time": "10.16.(금) 15:00–16:00", "days": ["2026-10-16"] },
+        { "name": "청년 드림 콘서트", "time": "10.16.(금) 19:00–21:00", "days": ["2026-10-16"] },
+        { "name": "강감찬 토크쇼 & 퀴즈쇼", "time": "10.17.(토) 13:00–16:00", "days": ["2026-10-17"] },
+        { "name": "10주년 기념 특별공연 〈강감찬, 별에서 오다 & 공중 불꽃 퍼포먼스〉", "time": "10.17.(토) 19:30–20:30", "days": ["2026-10-17"] },
+        { "name": "시민풍류제", "time": "10.18.(일) 12:00–14:30", "days": ["2026-10-18"] },
+        { "name": "생활예술페스티벌", "time": "10.18.(일) 16:00–19:00 공연", "days": ["2026-10-18"] },
+        { "name": "21 동네 한 바퀴", "time": "10.17.(토)–18.(일) · 소광장과 함께", "days": ["2026-10-17", "2026-10-18"] }
+      ]
+    },
+    {
+      "id": "tunnel",
+      "code": "G",
+      "name": "소원터널",
+      "category": "experience",
+      "x": 41,
+      "y": 64,
+      "summary": "소원을 남기는 포토존 터널입니다.",
+      "image": "img/program/extra-wish.jpg",
+      "programs": [
+        { "name": "소원터널", "time": "10.16.(금)–18.(일)", "days": ["2026-10-16", "2026-10-17", "2026-10-18"] }
+      ]
+    },
+    {
+      "id": "small",
+      "code": "H",
+      "name": "소광장",
+      "category": "experience",
+      "x": 87,
+      "y": 73,
+      "summary": "주민 부스와 동네 프로그램이 모이는 소광장입니다.",
+      "image": "img/program/community-21.jpg",
+      "programs": [
+        { "name": "21 동네 한 바퀴", "time": "10.17.(토)–18.(일) · 대광장과 함께", "days": ["2026-10-17", "2026-10-18"] }
+      ]
+    },
+    {
+      "id": "college",
+      "code": "K",
+      "name": "서울시민대학",
+      "category": "forum",
+      "x": 46,
+      "y": 88,
+      "summary": "학술대회, 사생대회, 공모전 본선이 열리는 실내 공간입니다.",
+      "image": "img/program/special-conference.jpg",
+      "programs": [
+        { "name": "10주년 기념 학술대회 〈지나봄, 내다봄〉", "time": "10.16.(금) 14:00–17:00", "days": ["2026-10-16"] },
+        { "name": "인헌예술제(강감찬 어린이 사생대회)", "time": "10.17.(토) 10:00–17:00", "days": ["2026-10-17"] },
+        { "name": "생성형 AI 영상 콘텐츠 공모전 〈GAIFF〉 본선", "time": "10.17.(토) 14:00–16:00", "days": ["2026-10-17"] }
+      ]
+    }
+  ],
+  "facilityTypes": [
+    { "id": "toilet", "label": "화장실", "short": "화", "color": "#2f6fdb" },
+    { "id": "medic", "label": "의무실", "short": "의", "color": "#d64545" },
+    { "id": "lost", "label": "분실물", "short": "분", "color": "#c4892a" }
+  ],
+  "facilities": [
+    {
+      "id": "toilet-a",
+      "type": "toilet",
+      "name": "화장실 A",
+      "desc": "열린마당 북쪽, 전시관으로 가는 길목",
+      "x": 36,
+      "y": 44,
+      "hours": "10:00–21:00"
+    },
+    {
+      "id": "toilet-b",
+      "type": "toilet",
+      "name": "화장실 B",
+      "desc": "전시관 앞, 운영본부로 가는 길",
+      "x": 48,
+      "y": 44,
+      "hours": "10:00–21:00"
+    },
+    {
+      "id": "toilet-d",
+      "type": "toilet",
+      "name": "화장실 D",
+      "desc": "산책로 동쪽 끝",
+      "x": 92,
+      "y": 52,
+      "hours": "10:00–21:00"
+    },
+    {
+      "id": "toilet-c",
+      "type": "toilet",
+      "name": "화장실 C",
+      "desc": "서울대학교 방향 도로변, 안내도 오른쪽 아래",
+      "x": 93,
+      "y": 85,
+      "hours": "10:00–21:00"
+    },
+    {
+      "id": "medic",
+      "type": "medic",
+      "name": "의무실",
+      "desc": "소원터널과 대광장 사이, 구급차 표시 위치",
+      "x": 50,
+      "y": 75,
+      "hours": "10:00–21:00",
+      "phone": "",
+      "note": "경미한 처치와 휴식을 돕는 현장 의무실입니다. 응급 상황에는 119에 연락해 주세요."
+    },
+    {
+      "id": "lost",
+      "type": "lost",
+      "name": "분실물 센터",
+      "desc": "운영본부(안내도 I). 분실과 습득 모두 여기서 접수해요.",
+      "x": 53,
+      "y": 54,
+      "hours": "10:00–21:00",
+      "phone": "",
+      "note": "이름, 연락처, 잃어버린 장소와 물건 특징을 알려 주세요. 실시간 분실물 목록은 운영하지 않아요."
+    }
+  ],
+  "days": [
+    {
+      "id": "2026-10-16",
+      "label": "10월 16일 (금)",
+      "theme": "청년과 함께",
+      "items": [
+        { "time": "10:00–12:00", "name": "강감찬 장군 추모제향", "place": "안국사", "zoneId": "anguk" },
+        { "time": "13:00–17:00", "name": "인헌 휘호대회", "place": "열린마당", "zoneId": "yard" },
+        { "time": "14:00–17:00", "name": "10주년 기념 학술대회 〈지나봄, 내다봄〉", "place": "서울시민대학", "zoneId": "college" },
+        { "time": "15:00–16:00", "name": "충남청년 아트페스타 X 관악청년 예술교류(공연)", "place": "대광장", "zoneId": "main" },
+        { "time": "19:00–21:00", "name": "청년 드림 콘서트", "place": "대광장", "zoneId": "main" }
+      ],
+      "anytime": [
+        { "time": "상시", "name": "별별놀이터", "place": "중광장", "zoneId": "mid" },
+        { "time": "13:00부터", "name": "고려장터", "place": "열린마당", "zoneId": "yard" },
+        { "time": "상시", "name": "관악정 〈강감찬 후예: 국궁의 꽃이다〉", "place": "낙성꽃뜰정원", "zoneId": "garden" },
+        { "time": "상시", "name": "10주년 기념 아카이브 전시", "place": "낙성꽃뜰정원", "zoneId": "garden" },
+        { "time": "상시", "name": "소원터널", "place": "소원터널", "zoneId": "tunnel" },
+        { "time": "상시", "name": "강감찬 상설 전시", "place": "전시관", "zoneId": "exhibit" },
+        { "time": "이동 코스", "name": "낙성대 야별회", "place": "생가터 ~ 천문대", "zoneId": "" }
+      ]
+    },
+    {
+      "id": "2026-10-17",
+      "label": "10월 17일 (토)",
+      "theme": "가족과 함께",
+      "items": [
+        { "time": "10:00–17:00", "name": "인헌예술제(강감찬 어린이 사생대회)", "place": "서울시민대학", "zoneId": "college" },
+        { "time": "11:00–18:00", "name": "리틀 강감찬을 찾아라", "place": "안국사", "zoneId": "anguk" },
+        { "time": "12:30–13:00", "name": "별별스테이지", "place": "안국사", "zoneId": "anguk" },
+        { "time": "13:00–13:30", "name": "리딩데이(도전! 100권 챌린지 시상식)", "place": "안국사", "zoneId": "anguk" },
+        { "time": "13:00–16:00", "name": "강감찬 토크쇼 & 퀴즈쇼", "place": "대광장", "zoneId": "main" },
+        { "time": "14:00–16:00", "name": "충남 청년 아트페스타 X 관악 청년 예술교류(버스킹)", "place": "안국사", "zoneId": "anguk" },
+        { "time": "14:00–16:00", "name": "생성형 AI 영상 콘텐츠 공모전 〈GAIFF〉 본선", "place": "서울시민대학", "zoneId": "college" },
+        { "time": "16:00–18:00", "name": "세대공감콘서트 〈울림〉", "place": "열린마당", "zoneId": "yard" },
+        { "time": "16:30–17:00", "name": "별별스테이지", "place": "안국사", "zoneId": "anguk" },
+        { "time": "17:00–18:00", "name": "리딩데이(로열인문학)", "place": "안국사", "zoneId": "anguk" },
+        { "time": "19:30–20:30", "name": "10주년 기념 특별공연 〈강감찬, 별에서 오다 & 공중 불꽃 퍼포먼스〉", "place": "대광장", "zoneId": "main" }
+      ],
+      "anytime": [
+        { "time": "상시", "name": "21 동네 한 바퀴", "place": "대광장, 소광장", "zoneId": "small" },
+        { "time": "상시", "name": "고려장터", "place": "열린마당", "zoneId": "yard" },
+        { "time": "상시", "name": "벽란도 21", "place": "산책로", "zoneId": "trail" },
+        { "time": "12:00–18:00", "name": "고려수서원 〈팝업야외도서관〉", "place": "안국사", "zoneId": "anguk" },
+        { "time": "상시", "name": "별별놀이터", "place": "중광장", "zoneId": "mid" },
+        { "time": "상시", "name": "인헌예술제", "place": "낙성꽃뜰정원", "zoneId": "garden" },
+        { "time": "상시", "name": "소원터널", "place": "소원터널", "zoneId": "tunnel" },
+        { "time": "상시", "name": "강감찬 상설 전시", "place": "전시관", "zoneId": "exhibit" },
+        { "time": "이동 코스", "name": "낙성대 야별회", "place": "생가터 ~ 천문대", "zoneId": "" }
+      ]
+    },
+    {
+      "id": "2026-10-18",
+      "label": "10월 18일 (일)",
+      "theme": "주민과 함께",
+      "items": [
+        { "time": "11:00–17:00", "name": "생활예술페스티벌(공연, 체험)", "place": "안국사", "zoneId": "anguk" },
+        { "time": "12:00–14:30", "name": "시민풍류제", "place": "대광장", "zoneId": "main" },
+        { "time": "16:00–19:00", "name": "생활예술페스티벌(공연)", "place": "대광장", "zoneId": "main" }
+      ],
+      "anytime": [
+        { "time": "상시", "name": "21 동네 한 바퀴", "place": "대광장, 소광장", "zoneId": "small" },
+        { "time": "상시", "name": "고려장터", "place": "열린마당", "zoneId": "yard" },
+        { "time": "상시", "name": "벽란도 21", "place": "산책로", "zoneId": "trail" },
+        { "time": "12:00–18:00", "name": "고려수서원 〈팝업야외도서관〉", "place": "안국사", "zoneId": "anguk" },
+        { "time": "상시", "name": "별별놀이터", "place": "중광장", "zoneId": "mid" },
+        { "time": "상시", "name": "인헌예술제", "place": "낙성꽃뜰정원", "zoneId": "garden" },
+        { "time": "상시", "name": "소원터널", "place": "소원터널", "zoneId": "tunnel" },
+        { "time": "상시", "name": "강감찬 상설 전시", "place": "전시관", "zoneId": "exhibit" },
+        { "time": "이동 코스", "name": "낙성대 야별회", "place": "생가터 ~ 천문대", "zoneId": "" }
+      ]
+    }
+  ]
+}

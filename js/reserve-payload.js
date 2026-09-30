@@ -16,7 +16,11 @@ function readReservationForm(form) {
     name: String(data.get("name") || "").trim(),
     phone: data.get("phone"),
     birth: birth,
-    day: String(data.get("day") || "").trim(),
-    program: String(data.get("program") || "").trim(),
+    day: data.getAll("day").map(function (value) {
+      return String(value || "").trim();
+    }).filter(Boolean),
+    program: data.getAll("program").map(function (value) {
+      return String(value || "").trim();
+    }).filter(Boolean),
   };
 }
