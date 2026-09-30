@@ -148,11 +148,6 @@ app.get(
   })
 );
 
-app.use("/data", function (req, res, next) {
-  res.set("Cache-Control", "no-cache");
-  next();
-});
-
 app.use(express.static(ROOT));
 
 async function start() {
