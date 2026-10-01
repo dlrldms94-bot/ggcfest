@@ -1078,7 +1078,6 @@ a.p-card:focus-visible {
 }
 .reserve-form {
   display: grid;
-  gap: 20px;
 }
 .reserve-form-scroll {
   display: grid;
@@ -1261,6 +1260,116 @@ a.p-card:focus-visible {
 }
 .reserve-form .reserve-check:has(input:focus-visible) {
   box-shadow: inset 0 0 0 1px rgba(244, 229, 107, 0.45);
+}
+.reserve-consent {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 8px;
+  min-height: 44px;
+}
+.reserve-form label.reserve-consent__label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  flex: 1 1 12rem;
+  min-width: 0;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.45;
+  cursor: pointer;
+}
+.reserve-consent__label span {
+  word-break: keep-all;
+}
+.reserve-form .reserve-consent__label input {
+  width: 18px;
+  height: 18px;
+  min-height: 18px;
+  margin: 2px 0 0;
+  padding: 0;
+  flex: 0 0 auto;
+  accent-color: #f4e56b;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.reserve-consent__label em {
+  color: #ff4f93;
+  font-style: normal;
+  font-weight: 800;
+}
+@media (max-width: 900px) {
+  .reserve-form label.reserve-consent__label {
+    flex-basis: 100%;
+  }
+}
+.reserve-consent__open {
+  flex: 0 0 auto;
+  margin-left: auto;
+  min-height: 44px;
+  padding: 0 2px;
+  border: 0;
+  background: transparent;
+  color: var(--gold-2);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.privacy-modal[hidden] { display: none; }
+.privacy-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
+}
+.privacy-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 8, 24, 0.62);
+}
+.privacy-modal__panel {
+  position: relative;
+  width: min(420px, 100%);
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+  padding: 28px 22px 22px;
+  background: #1c1848;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+}
+.privacy-modal__panel h2 {
+  margin: 0 36px 18px 0;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+.privacy-modal__list {
+  display: grid;
+  gap: 14px;
+  margin: 0 0 22px;
+}
+.privacy-modal__list div {
+  display: grid;
+  gap: 4px;
+}
+.privacy-modal__list dt {
+  color: var(--gold-2);
+  font-size: 13px;
+  font-weight: 800;
+}
+.privacy-modal__list dd {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 15px;
+  line-height: 1.5;
 }
 .toast {
   position: fixed;

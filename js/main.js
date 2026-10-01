@@ -445,6 +445,12 @@ document.getElementById("reserveForm").addEventListener("submit", async (e) => {
     openReservePicker(form, "program");
     return;
   }
+  if (!payload.privacy) {
+    toast("개인정보 수집·이용에 동의해 주세요.");
+    const privacy = form.querySelector('input[name="privacy"]');
+    if (privacy) privacy.focus();
+    return;
+  }
   const name = payload.name;
   submit.disabled = true;
   try {
@@ -471,7 +477,7 @@ document.getElementById("reserveForm").addEventListener("submit", async (e) => {
   }
 });
 document.addEventListener("keydown", (e) => {
-  if (e.key !== "Escape" || e.reservePickerWasOpen) return;
+  if (e.key !== "Escape" || e.reservePickerWasOpen || e.privacyModalWasOpen) return;
   closeReserveModal();
 });
 

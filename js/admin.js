@@ -48,7 +48,7 @@ function renderRows() {
   const visible = filteredItems();
   countEl.textContent = visible.length + "건" + (visible.length !== items.length ? " / 전체 " + items.length + "건" : "");
   if (!visible.length) {
-    rowsEl.innerHTML = '<tr><td colspan="7">신청 내역이 없습니다.</td></tr>';
+    rowsEl.innerHTML = '<tr><td colspan="8">신청 내역이 없습니다.</td></tr>';
     return;
   }
   rowsEl.innerHTML = visible.map((item, index) => {
@@ -60,6 +60,7 @@ function renderRows() {
       "<td>" + escapeHtml(item.birthDate) + "</td>" +
       "<td>" + escapeHtml(item.visitDay) + "</td>" +
       "<td>" + escapeHtml(item.program) + "</td>" +
+      "<td>" + (item.privacyAgreed ? "동의" : "미동의") + "</td>" +
       "<td>" + escapeHtml(formatTime(item.createdAt)) + "</td>" +
       "</tr>"
     );
@@ -100,7 +101,7 @@ function csvEscape(value) {
 
 function downloadCsv() {
   const visible = filteredItems();
-  const lines = [["번호", "이름", "연락처", "생년월일", "방문 희망일", "참여 프로그램", "신청 일시"].join(",")];
+  const lines = [["번호", "이름", "연락처", "생년월일", "방문 희망일", "참여 프로그램", "개인정보 동의", "신청 일시"].join(",")];
   visible.forEach((item, index) => {
     lines.push([
       visible.length - index,
@@ -109,6 +110,7 @@ function downloadCsv() {
       csvEscape(item.birthDate),
       csvEscape(item.visitDay),
       csvEscape(item.program),
+      item.privacyAgreed ? "동의" : "미동의",
       csvEscape(formatTime(item.createdAt)),
     ].join(","));
   });

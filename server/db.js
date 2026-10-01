@@ -36,6 +36,9 @@ async function initDatabase() {
   await pool.query(`
     ALTER TABLE reservations ADD COLUMN IF NOT EXISTS program TEXT
   `);
+  await pool.query(`
+    ALTER TABLE reservations ADD COLUMN IF NOT EXISTS privacy_agreed BOOLEAN NOT NULL DEFAULT FALSE
+  `);
 
   console.log("[db] PostgreSQL 연결 완료");
 }
@@ -55,6 +58,7 @@ async function createReservation(data) {
       birthDate: data.birthDate,
       visitDay: data.visitDay,
       program: data.program,
+      privacyAgreed: data.privacyAgreed === true,
       createdAt: new Date().toISOString(),
     };
     memoryReservations.push(reservation);
@@ -62,10 +66,10 @@ async function createReservation(data) {
   }
 
   const result = await pool.query(
-    `INSERT INTO reservations (name, phone, birth_date, visit_day, program)
-     VALUES ($1, $2, $3, $4, $5)
-     RETURNING id, name, phone, birth_date, visit_day, program, created_at`,
-    [data.name, data.phone, data.birthDate, data.visitDay, data.program]
+    `INSERT INTO reservations (name, phone, birth_date, visit_day, program, privacy_agreed)
+     VALUES ($1, $2, $3, $4, $5, $6)
+     RETURNING id, name, phone, birth_date, visit_day, program, privacy_agreed, created_at`,
+    [data.name, data.phone, data.birthDate, data.visitDay, data.program, data.privacyAgreed === true]
   );
   const row = result.rows[0];
   return {
@@ -75,6 +79,7 @@ async function createReservation(data) {
     birthDate: row.birth_date,
     visitDay: row.visit_day,
     program: row.program,
+    privacyAgreed: row.privacy_agreed === true,
     createdAt: row.created_at,
   };
 }
@@ -85,7 +90,7 @@ async function listReservations() {
   }
 
   const result = await pool.query(
-    `SELECT id, name, phone, birth_date, visit_day, program, created_at
+    `SELECT id, name, phone, birth_date, visit_day, program, privacy_agreed, created_at
      FROM reservations
      ORDER BY created_at DESC, id DESC`
   );
@@ -97,6 +102,7 @@ async function listReservations() {
       birthDate: row.birth_date || "",
       visitDay: row.visit_day,
       program: row.program || "",
+      privacyAgreed: row.privacy_agreed === true,
       createdAt: row.created_at,
     };
   });

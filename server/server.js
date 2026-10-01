@@ -102,6 +102,9 @@ app.post(
     if (!programs.length) {
       return res.status(400).json({ message: "참여 예정 프로그램을 하나 이상 선택해 주세요." });
     }
+    if (!req.body || req.body.privacy !== true) {
+      return res.status(400).json({ message: "개인정보 수집·이용에 동의해 주세요." });
+    }
 
     const reservation = await db.createReservation({
       name: name,
@@ -109,6 +112,7 @@ app.post(
       birthDate: birthDate,
       visitDay: visitDays.join(", "),
       program: programs.join(", "),
+      privacyAgreed: true,
     });
 
     res.status(201).json({ ok: true, id: reservation.id });

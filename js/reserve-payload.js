@@ -22,5 +22,6 @@ function readReservationForm(form) {
     program: data.getAll("program").map(function (value) {
       return String(value || "").trim();
     }).filter(Boolean),
+    privacy: data.get("privacy") === "1",
   };
 }

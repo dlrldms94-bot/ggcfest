@@ -95,6 +95,13 @@
               <label class="reserve-check"><input type="checkbox" name="program" value="리딩데이: 로열인문학"><span>리딩데이: 로열인문학</span></label>
             </div>
           </fieldset>
+          <div class="reserve-consent">
+            <label class="reserve-consent__label">
+              <input type="checkbox" name="privacy" value="1">
+              <span>개인정보 수집·이용에 동의합니다. <em>(필수)</em></span>
+            </label>
+            <button type="button" class="reserve-consent__open" data-open-privacy>내용 보기</button>
+          </div>
           </div>
           <button type="submit" class="btn-reserve btn-reserve--block">소환장 받기</button>
         </form>
@@ -108,6 +115,29 @@
       </div>
     </article>
   </main>
+
+  <div class="privacy-modal" data-privacy-modal hidden>
+    <div class="privacy-modal__backdrop" data-close-privacy></div>
+    <div class="privacy-modal__panel" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
+      <button type="button" class="modal__close" data-close-privacy aria-label="닫기">×</button>
+      <h2 id="privacyTitle">개인정보 수집·이용 안내</h2>
+      <dl class="privacy-modal__list">
+        <div>
+          <dt>수집 항목</dt>
+          <dd>이름, 연락처, 생년월일, 방문 희망일, 참여 예정 프로그램</dd>
+        </div>
+        <div>
+          <dt>목적</dt>
+          <dd>사전예약 확인과 현장 소환장 인증</dd>
+        </div>
+        <div>
+          <dt>보관</dt>
+          <dd>축제 종료 후 파기</dd>
+        </div>
+      </dl>
+      <button type="button" class="btn-reserve btn-reserve--block" data-close-privacy>확인</button>
+    </div>
+  </div>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 

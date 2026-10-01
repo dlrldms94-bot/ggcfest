@@ -187,8 +187,40 @@ document.addEventListener("click", (event) => {
   });
 });
 
+function privacyDialog() {
+  return document.querySelector("[data-privacy-modal]");
+}
+
+function setPrivacyModal(open) {
+  const dialog = privacyDialog();
+  if (!dialog) return;
+  dialog.hidden = !open;
+  if (!open) return;
+  const closeBtn = dialog.querySelector(".privacy-modal__panel [data-close-privacy]");
+  if (closeBtn) closeBtn.focus();
+}
+
+document.addEventListener("click", (event) => {
+  if (event.target.closest("[data-open-privacy]")) {
+    event.preventDefault();
+    setPrivacyModal(true);
+    return;
+  }
+  if (event.target.closest("[data-close-privacy]")) {
+    setPrivacyModal(false);
+  }
+});
+
 document.addEventListener("keydown", (event) => {
   if (event.key !== "Escape") return;
+  const dialog = privacyDialog();
+  if (!dialog || dialog.hidden) return;
+  setPrivacyModal(false);
+  event.privacyModalWasOpen = true;
+}, true);
+
+document.addEventListener("keydown", (event) => {
+  if (event.key !== "Escape" || event.privacyModalWasOpen) return;
   const open = document.querySelector(".reserve-pick.is-open");
   if (!open) return;
   setReservePickerOpen(open, false);
