@@ -1416,19 +1416,28 @@ a.p-card:focus-visible {
   .points__grid { grid-template-columns: 1fr; }
   .point { border-right: 0; border-bottom: 1px solid rgba(255,255,255,.12); }
   .footer__inner { flex-direction: column; align-items: flex-start; }
+  .tt-board { padding: 32px 16px 16px; }
   .tt-tabs { grid-template-columns: 1fr 1fr; }
-  .tt-row { grid-template-columns: 108px 16px 1fr; }
+  .tt-row { grid-template-columns: 90px 10px 1fr; }
   .tt-place, .tt-tag { grid-column: 3; }
+  .tt-tag { justify-self: flex-start; }
 }
 
 @media (max-width: 900px) {
   .header { height: 64px; }
   html { scroll-padding-top: 64px; }
-  .nav-toggle { display: block; }
+  .nav-toggle {
+    display: block;
+    order: 2;
+    margin-left: 0;
+  }
   .header__inner { width: calc(100% - 24px); gap: 10px; }
+  .header__inner > .btn-reserve {
+    order: 1;
+    margin-left: auto;
+  }
   .btn-reserve {
     display: inline-flex;
-    margin-left: 0;
     padding: 8px 12px;
     font-size: 12px;
   }
@@ -1439,7 +1448,7 @@ a.p-card:focus-visible {
     left: 0;
     right: 0;
     padding: 18px 24px 24px;
-    background: rgba(22, 20, 58, 0.42);
+    background: rgba(22, 20, 58, 0.9);
     backdrop-filter: blur(22px) saturate(160%);
     -webkit-backdrop-filter: blur(22px) saturate(160%);
     border-bottom: 1px solid rgba(255, 255, 255, 0.12);
@@ -1457,6 +1466,9 @@ a.p-card:focus-visible {
   }
   .modal__panel {
     padding: 24px 18px 20px;
+  }
+  .map-card__info {
+    padding: 0px 16px 32px;
   }
 }
 
@@ -1540,3 +1552,4 @@ a.p-card:focus-visible {
   font-weight: 600;
 }
 .admin-table tr:last-child td { border-bottom: 0; }
+
