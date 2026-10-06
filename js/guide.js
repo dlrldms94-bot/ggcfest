@@ -15,6 +15,7 @@
 
   var built = { programs: false, facilities: false };
   var mapCentered = { program: false, facility: false };
+  var preferOverview = { program: false, facility: false };
   var mapNodePromise = null;
   var lastFocus = null;
   var titles = {
@@ -358,9 +359,10 @@
     return mountMap("programStage").then(function () {
       setMapHits("programs");
       applyCategory();
+      applyEntryFit("program");
       if (!mapCentered.program) {
         mapCentered.program = true;
-        centerMap("programScroll");
+        if (!document.getElementById("programStage").classList.contains("is-fit")) centerMap("programScroll");
       }
     }).catch(function () {
       var stage = document.getElementById("programStage");
@@ -530,9 +532,10 @@
       applyFacilityType();
       renderFacilityList();
       if (state.position) placeUserDot();
+      applyEntryFit("facility");
       if (!mapCentered.facility) {
         mapCentered.facility = true;
-        centerMap("facilityScroll");
+        if (!document.getElementById("facilityStage").classList.contains("is-fit")) centerMap("facilityScroll");
       }
     }).catch(function () {
       var stage = document.getElementById("facilityStage");
@@ -770,6 +773,21 @@
     }
   }
 
+  function applyEntryFit(which) {
+    if (!preferOverview[which]) return;
+    preferOverview[which] = false;
+    if (!document.documentElement.classList.contains("is-large")) return;
+    var stage = document.getElementById(which + "Stage");
+    var btn = document.querySelector('[data-zoom="' + which + '"]');
+    var scroller = document.getElementById(which + "Scroll");
+    if (stage) stage.classList.add("is-fit");
+    if (btn) {
+      btn.setAttribute("aria-pressed", "true");
+      btn.textContent = "지도 크게 보기";
+    }
+    if (scroller) scroller.scrollTo(0, 0);
+  }
+
   function toggleZoom(which) {
     var stage = document.getElementById(which + "Stage");
     var btn = document.querySelector('[data-zoom="' + which + '"]');
@@ -851,6 +869,10 @@
     var parsed = parseHash();
     var viewChanged = state.view !== parsed.view;
     state.view = parsed.view;
+    if (viewChanged && document.documentElement.classList.contains("is-large")) {
+      if (parsed.view === "programs") preferOverview.program = true;
+      if (parsed.view === "facilities") preferOverview.facility = true;
+    }
     if (parsed.view === "facilities") {
       state.facilityType = parsed.arg && parsed.arg !== "all" ? parsed.arg : "all";
     }

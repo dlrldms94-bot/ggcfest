@@ -461,7 +461,8 @@ body.is-locked .top { z-index: 20; }
   aspect-ratio: 365.334 / 260.055;
 }
 html.is-large .map-stage { width: 1080px; }
-.map-stage.is-fit { width: 100%; }
+.map-stage.is-fit,
+html.is-large .map-stage.is-fit { width: 100%; }
 .map-stage img,
 .map-stage .map-svg { width: 100%; height: 100%; display: block; }
 .map-stage [data-place] { pointer-events: none; }
