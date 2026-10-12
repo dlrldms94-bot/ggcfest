@@ -1,126 +1,119 @@
 const programs = {
   special: [
     {
-      img: "./img/program/special-conference.jpg",
-      title: "10주년 기념 학술대회 &lt;지나봄, 내다봄&gt;",
-      desc: "10주년 기념 도심형 역사문화축제, 강감찬축제의 어제와 오늘을 통해 미래 전략을 이야기하는 학술대회",
-      place: "서울시민대학",
-      time: "10.16.(금) 14:00 – 17:00",
-      link: "https://docs.google.com/forms/d/e/1FAIpQLSfgUefJ4M4aKMUve0inRMXbH0SIgfALJn4zgnaNsVrFzzoSWw/viewform",
-    },
-    {
       img: "./img/program/special-performance.jpg",
       title: "10주년 기념 특별공연 &lt;강감찬, 별에서 오다 &amp; 공중 불꽃 퍼포먼스&gt;",
-      desc: "전통연희와 현대무용, 라이브 연주와 공중 불꽃 퍼포먼스가 어우러지는 60분간의 대형 야외 스펙터클. 강감찬의 이름에 담긴 판단과 용기, 연대와 공동체 정신을 관객과 함께 나누는 10주년 대표 넌버벌 퍼포먼스",
-      place: "대광장",
-      time: "10.17.(토) 19:30 – 20:30",
+      desc: "전통연희와 현대무용, 라이브 연주와 공중 불꽃 퍼포먼스가 어우러지는 70분간의 대형 야외 스펙터클로, 강감찬의 이름에 담긴 판단과 용기, 연대와 공동체 정신을 관객과 함께 나누는 넌버벌 퍼포먼스",
+      place: "대광장 메인무대",
+      time: "10.17.(토) 19:00 – 20:40",
     },
   ],
   community: [
     {
       img: "./img/program/community-21.jpg",
       title: "21 동네 한 바퀴",
-      desc: "관악구 21개동 별 이야기를 담아 제작하는 주민 주도형 부스 기획 프로그램",
+      desc: "관악구 21개동 이야기를 담아 제작하는 주민 주도형 기획 프로그램",
       place: "대광장, 소광장",
-      time: "10.17.(토) ~ 18.(일)",
+      time: "10.17.(토) – 18.(일)",
     },
     {
       img: "./img/program/community-market.jpg",
       title: "고려장터",
-      desc: "관내 청년, 지역 상권 등과 연계하여 지역경제 활성화를 위해 진행하는 강감찬축제만의 고려 미식 프로그램",
+      desc: "관악을 대표하는 맛집들이 참여해 지역경제 활성화에 기여하는 고려 미식 프로그램",
       place: "열린마당",
-      time: "10.16.(금) ~ 18.(일)",
+      time: "10.16.(금) – 18.(일)",
+    },
+    {
+      img: "./img/program/community-byeoklando.jpg",
+      title: "벽란도21",
+      desc: "국제 무역항구였던 고려시대 벽란도를 재현한 문화 교류 프로그램",
+      place: "산책로",
+      time: "10.17.(토) – 18.(일)",
+    },
+    {
+      img: "./img/program/anguk-lifeart.jpg",
+      title: "생활예술페스티벌",
+      desc: "관악구 생활예술동아리와 지역주민이 함께하는 주민참여형 공연·전시·체험 생활예술 한마당",
+      place: "대광장, 안국사",
+      time: "10.18.(일) 11:00 – 19:00",
     },
     {
       img: "./img/program/community-pungryu.jpg",
       title: "시민풍류제",
       desc: "전 구민이 참여하는 관악구 대표 노래 경연 대회",
-      place: "대광장",
-      time: "10.18.(일) 12:00 – 14:30",
-    },
-    {
-      img: "./img/program/community-byeoklando.jpg",
-      title: "벽란도 21",
-      desc: "국제 무역항구였던 고려시대 벽란도를 21세기에 재현한, 문화를 체험할 수 있는 지역 교류 프로그램",
-      place: "산책로",
-      time: "10.17.(토) ~ 18.(일)",
+      note: "사회 : 조충현 아나운서",
+      place: "대광장 메인무대",
+      time: "10.18.(일) 12:00 – 15:00",
     },
   ],
   youth: [
     {
-      img: "./img/program/youth-concert.jpg",
+      img: "./img/program/youth-concert.png",
       title: "청년 드림 콘서트",
-      desc: "힙합 아티스트 다이나믹 듀오 X 래퍼 신스와 함께 서울시 내 5개 대학(서울대, 서울시립대, 서울예대, 숙명여대, 성균관대) 동아리가 펼치는 금요일 청년 특화 무대",
-      place: "대광장",
+      desc: "힙합 아티스트 다이나믹 듀오 x 래퍼 신스와 함께 서울시 내 5개 대학(서울대 ‘바운스 팩토리’, 서울시립대 ‘트루츠’, 서울예술대 ‘웨이브’, 숙명여대 ‘BSL’, 성균관대 ‘SMC’) 힙합동아리가 펼치는 금요일 청년 특화 무대",
+      place: "대광장 메인무대",
       time: "10.16.(금) 19:00 – 21:00",
-    },
-    {
-      img: "./img/program/youth-gaiff.jpg",
-      title: "생성형 AI 영상 콘텐츠 공모전 &lt;GAIFF&gt; 본선",
-      desc: "AI 콘텐츠 제작에 관심이 있는 지역주민을 대상으로 진행하는 생성형 AI 영상 콘텐츠 공모전",
-      place: "서울시민대학",
-      time: "10.17.(토) 14:00 – 16:00",
     },
   ],
   history: [
     {
       img: "./img/program/history-talk.jpg",
-      title: "강감찬 토크쇼 &amp; 퀴즈쇼",
-      desc: "설민석이 진행하는 참여형 역사 토크쇼, 고려 과거시험을 모티브로 강감찬 장군에 대해 탐구하는 퀴즈쇼",
-      place: "대광장",
+      title: "강감찬 토크쇼&amp;퀴즈쇼",
+      desc: "역사 강사 설민석의 ‘붓으로 나라를 구한 남자, 강감찬’ 토크쇼와 고려 과거시험을 모티브로 한 퀴즈쇼",
+      place: "대광장 메인무대",
       time: "10.17.(토) 13:00 – 16:00",
     },
     {
-      img: "./img/program/history-play.jpg",
+      img: "./img/program/history-play.png",
       title: "별별놀이터",
-      desc: "강감찬의 전략·전술을 리더십 놀이 형태로 체험할 수 있는 가족형 놀이 체험 콘텐츠",
+      desc: "강감찬 전략, 전술을 리더십 놀이 형태로 체험할 수 있는 가족형 놀이 체험 콘텐츠",
       place: "중광장",
-      time: "10.16.(금) ~ 18.(일)",
+      time: "10.17.(토) – 10.18.(일)",
     },
     {
       img: "./img/program/history-stars.jpg",
       title: "낙성대 야별회",
-      desc: "고려 이야기꾼과 함께 강감찬 장군의 탄생과 업적을 들으며 우주 별을 관측하는 투어 프로그램",
+      desc: "고려 이야기꾼과 함께 강감찬 장군의 탄생과 업적을 들으며 별을 관측하는 투어 프로그램",
       place: "생가터 ~ 천문대",
-      time: "10.16.(금) ~ 18.(일)",
+      time: "10.17.(토) – 10.18.(일)",
       link: "https://docs.google.com/forms/d/e/1FAIpQLSc6VAQiabWme6Xile3Nc98qdwZOEEX35dXyIQs9u9HAbkznug/viewform",
+    },
+    {
+      img: "./img/program/history-archery.jpg",
+      title: "관악정 &lt;강감찬의 후예: 국궁에 꽃이다&gt;",
+      desc: "국궁 전문기관인 관악정과 연계하여 진행하는 활쏘기 프로그램",
+      place: "낙성꽃뜰정원",
+      time: "10.16.(금) – 10.18.(일)",
     },
     {
       img: "./img/program/history-rite.jpg",
       title: "추모제향, 인헌 휘호대회",
-      desc: "강감찬 장군의 높은 충정과 기상을 기리고 후손에게 나라사랑의 호국정신을 일깨워주는 전통 행사 및 전통문화와 지역문화 육성을 위한 관악구 휘호대회",
+      desc: "강감찬 장군의 높은 충정과 기상을 기리고 후손에게 나라사랑의 호국정신을 일깨워주는 전통 행사 및 전통문화와 지역문화육성을 위한 관악구 휘호대회",
       place: "안국사, 열린마당",
       time: "10.16.(금) 10:00 – 17:00",
-    },
-    {
-      img: "./img/program/history-archery.jpg",
-      title: "관악정 &lt;강감찬 후예: 국궁의 꽃이다&gt;",
-      desc: "국궁 전문기관인 관악정과 연계하여 진행하는 활쏘기 프로그램",
-      place: "낙성꽃뜰정원",
-      time: "10.16.(금) ~ 18.(일)",
     },
   ],
   anguk: [
     {
       img: "./img/program/anguk-little.jpg",
       title: "리틀 강감찬을 찾아라",
-      desc: "강감찬의 전략·전술 및 리더십을 배우고 가치와 정신을 계승하는 역사 문화 체험 활동단",
+      desc: "강감찬의 전략, 전술 및 리더십을 배우고 가치와 정신을 계승하는 역사 문화 체험 활동단",
       place: "안국사",
-      time: "10.17.(토) 11:00 – 18:00",
-    },
-    {
-      img: "./img/program/anguk-lifeart.jpg",
-      title: "생활예술페스티벌",
-      desc: "관악구 생활문화동아리와 지역주민이 함께하는 주민참여형 공연·전시·체험 생활예술 한마당",
-      place: "대광장, 안국사",
-      time: "10.18.(일) 11:00 – 19:00",
+      time: "10.17.(토) 13:00 – 16:00",
     },
     {
       img: "./img/program/anguk-library.jpg",
       title: "고려수서원 &lt;팝업야외도서관&gt;",
-      desc: "강감찬과 고려의 이야기를 담은 책은 물론 다양한 분야의 도서를 만나는 시간. 서울도서관과 연계해 진행되는 팝업 야외도서관",
+      desc: "강감찬과 고려의 이야기를 담은 책은 물론 다양한 분야의 도서를 만나는 시간. 서울도서관과 연계해 진행되는 특별한 팝업 야외도서관 운영",
       place: "안국사",
-      time: "10.17.(토) ~ 18.(일) 12:00 – 18:00",
+      time: "10.17.(토) – 10.18.(일) 12:00–18:00",
+    },
+    {
+      img: "./img/program/readingday.jpg",
+      title: "리딩데이 &lt;로열인문학&gt;",
+      desc: "‘인공지능과의 서늘한 대화, 우리는 어떻게 살 것인가’를 주제로 정재승 교수와 함께 인공지능 시대의 인간과 삶을 돌아보고, 우리가 마주할 미래를 생각해보는 특별 강연",
+      place: "안국사",
+      time: "10.17.(토) 17:00 – 18:00",
     },
   ],
   artist: [
@@ -131,35 +124,44 @@ const programs = {
       place: "낙성꽃뜰정원",
       time: "10.17.(토) ~ 18.(일)",
     },
-  ],
-  extra: [
     {
-      img: "./img/program/extra-archive.jpg",
-      title: "10주년 기념 아카이브 전시",
-      desc: "지난 10년간 지역 주민과 함께한 관악강감찬축제의 역사를 한눈에 조망하는 기념 기획 전시",
-      place: "낙성꽃뜰정원",
-      time: "10.16.(금) ~ 18.(일)",
+      img: "./img/program/artist-roar.jpg",
+      title: "어흥! 강감찬이 떴다",
+      desc: "길을 막은 장난꾸러기 호랑이를 강감찬과 함께 “어흥!”으로 길들이는 시민 참여 거리 퍼포먼스",
+      place: "낙성대공원 일대",
+      time: "10.17.(토) – 10.18.(일)",
     },
     {
-      img: "./img/program/extra-stage.jpg",
-      title: "별별스테이지",
-      desc: "안국사에서 펼쳐지는 별별스테이지",
-      place: "안국사",
-      time: "10.17.(토)",
+      img: "./img/program/chungnam-youth-artfesta.jpg",
+      title: "충남 X 관악 청년 예술 교류 공연",
+      desc: "충남예술인 단체와 관악구 청년예술인이 함께하는 예술 교류 프로그램",
+      place: "대광장 메인무대, 안국사",
+      time: "10.16.(금) ~ 17.(토)",
     },
     {
       img: "./img/program/extra-wish.jpg",
-      title: "소원터널",
-      desc: "축제 공간 중 소원터널을 청년의 시각으로 기획하여 조성",
+      title: "소원터널×청년강감찬",
+      desc: "축제로 진입하는 대표공간인 소원터널을 문화도시 관악의 청년문화기획자가 참여하여 운영하는 소원달기 프로그램",
       place: "소원터널",
-      time: "10.16.(금) ~ 18.(일)",
+      time: "10.16.(금) – 10.18.(일)",
+    },
+  ],
+  extra: [
+    {
+      img: "./img/program/special-conference.jpg",
+      title: "10주년 기념 학술대회 &lt;지나봄, 내다봄&gt;",
+      desc: "도심형 역사문화축제:강감찬축제의 어제, 오늘을 통한 미래전략을 이야기하는 학술대회",
+      note: "*한국문화경제학회, 한국지역문화학회 공동주관",
+      place: "서울시민대학 대강당",
+      time: "10.16.(금) 14:00 – 17:00",
+      link: "https://docs.google.com/forms/d/e/1FAIpQLSfgUefJ4M4aKMUve0inRMXbH0SIgfALJn4zgnaNsVrFzzoSWw/viewform",
     },
     {
-      img: "./img/program/extra-exhibit.jpg",
-      title: "강감찬 상설 전시",
-      desc: "고려의 전성기를 열었던 명장 강감찬 장군을 만날 수 있는 곳",
-      place: "강감찬전시관",
-      time: "10.16.(금) ~ 18.(일)",
+      img: "./img/program/youth-gaiff.jpg",
+      title: "생성형 AI 영상 콘텐츠 공모전 &lt;GAIFF&gt; 본선",
+      desc: "AI 콘텐츠 제작에 관심이 있는 시민들을 대상으로 진행하는 생성형 AI 영상 콘텐츠 공모전",
+      place: "서울시민대학 소극장",
+      time: "10.17.(토) 14:00 – 16:00",
     },
   ],
 };
@@ -219,14 +221,18 @@ const timetableBoard = document.getElementById("timetableBoard");
 const toastEl = document.getElementById("toast");
 
 function programCardMarkup(item) {
+  const media = item.img
+    ? `<img src="${item.img}" alt="${item.title}">`
+    : "";
   const body = `
-        <div class="p-card__media">
-          <img src="${item.img}" alt="${item.title}">
+        <div class="p-card__media${item.img ? "" : ` is-color is-${item.tone || "lilac"}`}">
+          ${media}
           ${item.comingSoon ? `<span class="coming-soon">COMING SOON</span>` : ""}
         </div>
         <div class="p-card__body">
           <h3>${item.title}</h3>
           <p>${item.desc}</p>
+          ${item.note ? `<p class="p-card__note">${item.note}</p>` : ""}
           <div class="p-card__meta">
             <span><img src="./img/location.png" alt=""> ${item.place}</span>
             <span><img src="./img/date.png" alt=""> ${item.time}</span>
