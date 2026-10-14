@@ -892,19 +892,6 @@ a.p-card:focus-visible {
   line-height: 1.7;
   opacity: 0.8;
 }
-.location__mascot {
-  position: absolute;
-  right: 10px;
-  bottom: -41px;
-  z-index: 2;
-  width: min(220px, 18vw);
-  max-width: 200px;
-  height: auto;
-  pointer-events: none;
-  user-select: none;
-  transform: rotate(-25deg);
-}
-
 /* Partners */
 .partners {
   padding: 90px 0;
@@ -1437,7 +1424,6 @@ a.p-card:focus-visible {
   .hero__partners { flex-wrap: wrap; gap: 16px 24px; padding-bottom: 20px; }
   .guide__grid { grid-template-columns: 1fr; gap: 32px; }
   .partners__row, .map-card { grid-template-columns: 1fr; gap: 32px; }
-  .location__mascot { width: min(160px, 36vw); right: 12px; }
   .parking-toggle,
   .map-outlink {
     display: block;

@@ -59,6 +59,19 @@
   setPlaying(false);
   updateTimeline();
 
+  function tryAutoplay() {
+    if (button.disabled || !audio.paused) return;
+    var pending = audio.play();
+    if (pending && pending.catch) {
+      pending.catch(function () {
+        setPlaying(false);
+      });
+    }
+  }
+
+  audio.autoplay = true;
+  tryAutoplay();
+
   button.addEventListener("click", function () {
     if (button.disabled) return;
     if (audio.paused) {
