@@ -1799,16 +1799,37 @@ a.p-card:focus-visible {
   color: var(--muted);
   max-width: 40em;
 }
-.admin-heading {
-  margin: 0 0 16px;
-  font-size: 22px;
-  font-weight: 600;
-}
-.admin-heading--guestbook {
-  margin-top: 48px;
-}
 .admin-lock[hidden],
-.admin-board[hidden] { display: none; }
+.admin-board[hidden],
+.admin-tab-panel[hidden] { display: none; }
+.admin-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 24px;
+  padding: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+}
+.admin-tab {
+  min-height: 46px;
+  flex: 1;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.62);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.admin-tab.is-active {
+  background: var(--gold);
+  color: #211a08;
+}
+.admin-tab:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
 .admin-lock,
 .admin-toolbar {
   display: flex;

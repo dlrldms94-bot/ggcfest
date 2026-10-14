@@ -10,6 +10,9 @@ const csvBtn = document.getElementById("adminCsv");
 const guestbookRowsEl = document.getElementById("guestbookRows");
 const guestbookCountEl = document.getElementById("guestbookCount");
 const guestbookQueryEl = document.getElementById("guestbookQuery");
+const tabButtons = Array.from(document.querySelectorAll("[data-admin-tab]"));
+const reservationPanel = document.getElementById("reservationPanel");
+const guestbookPanel = document.getElementById("guestbookPanel");
 
 let items = [];
 let guestbookItems = [];
@@ -21,6 +24,19 @@ function storedKey() {
 function showError(message) {
   lockError.hidden = !message;
   lockError.textContent = message || "";
+}
+
+function setAdminTab(tabName, moveFocus) {
+  const showGuestbook = tabName === "guestbook";
+  reservationPanel.hidden = showGuestbook;
+  guestbookPanel.hidden = !showGuestbook;
+  tabButtons.forEach((button) => {
+    const active = button.dataset.adminTab === tabName;
+    button.classList.toggle("is-active", active);
+    button.setAttribute("aria-selected", String(active));
+    button.tabIndex = active ? 0 : -1;
+    if (active && moveFocus) button.focus();
+  });
 }
 
 function formatTime(value) {
@@ -203,6 +219,18 @@ guestbookRowsEl.addEventListener("click", (event) => {
   const button = event.target.closest("[data-guestbook-id]");
   if (!button) return;
   deleteGuestbookEntry(Number(button.dataset.guestbookId), button);
+});
+tabButtons.forEach((button, index) => {
+  button.addEventListener("click", () => {
+    setAdminTab(button.dataset.adminTab, false);
+  });
+  button.addEventListener("keydown", (event) => {
+    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+    event.preventDefault();
+    const direction = event.key === "ArrowRight" ? 1 : -1;
+    const nextIndex = (index + direction + tabButtons.length) % tabButtons.length;
+    setAdminTab(tabButtons[nextIndex].dataset.adminTab, true);
+  });
 });
 
 (async function start() {
