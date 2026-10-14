@@ -231,6 +231,7 @@ body.is-locked .top { z-index: 20; }
 .menu-ico--aid { background: #ef5d8a; }
 .menu-ico--type { background: #7a5cff; color: #fff; }
 .menu-ico--home { background: #3d4db8; color: #fff; }
+.menu-ico--docent { background: #f6e255; color: #241c08; }
 
 .hint {
   display: flex;

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>대광장 도슨트 | 2026 관악강감찬축제</title>
+  <meta name="description" content="대광장 설명을 들을 수 있는 관악강감찬축제 도슨트입니다.">
+  <meta name="theme-color" content="#14183f">
+  <link rel="canonical" href="https://www.ggcfest.com/guide/docent/main-plaza.html">
+  <link rel="icon" href="https://www.ggcfest.com/img/ggc.png">
+  <script>
+    document.documentElement.classList.add("js");
+    try {
+      if (localStorage.getItem("ggcGuideLargeText") === "1") {
+        document.documentElement.classList.add("is-large");
+      }
+    } catch (e) {}
+  </script>
+  <link rel="stylesheet" href="../../css/guide.css?v=34">
+  <link rel="stylesheet" href="./docent.css">
+</head>
+<body>
+  <div class="guide-app">
+    <a class="skip-link" href="#main">본문 바로가기</a>
+    <header class="top">
+      <a class="brand" href="../index.html#home">
+        <img class="brand__face" src="../../img/ggc.png" alt="">
+        <span class="brand__text">
+          <h1 class="brand__name">별동대 스마트 가이드</h1>
+        </span>
+      </a>
+      <a class="icon-btn" href="../index.html#home" aria-label="가이드 홈">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5z"></path>
+        </svg>
+      </a>
+    </header>
+    <main class="docent-page" id="main">
+      <section>
+        <header class="view-head">
+          <h2>대광장</h2>
+          <p>축제 메인 무대입니다. 무대 앞에 휠체어석 4석이 있어요.</p>
+        </header>
+        <button type="button" class="docent-play" data-docent-play data-place="대광장" aria-pressed="false">대광장 설명 듣기</button>
+        <audio class="docent-audio" data-docent-audio controls preload="metadata" src="../../docent/main-plaza.mp3">이 브라우저에서는 음성을 재생할 수 없어요.</audio>
+        <p class="docent-back"><a href="./">다른 장소 고르기</a></p>
+      </section>
+    </main>
+  </div>
+  <script src="./play.js"></script>
+</body>
+</html>

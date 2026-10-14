@@ -467,9 +467,36 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+  <div class="docent-widget" id="docentWidget">
+    <section class="docent-widget__panel" id="docentPanel" hidden aria-labelledby="docentTitle">
+      <div class="docent-widget__bar">
+        <h2 id="docentTitle">별동대</h2>
+        <button type="button" class="docent-widget__close" id="docentClose" aria-label="도슨트 닫기">×</button>
+      </div>
+      <p class="docent-widget__hello">안녕!<br>별동대 도슨트예요. 강감찬 장군과 축제 장소를 안내해 드릴게요.</p>
+      <div class="docent-widget__chips">
+        <button type="button" data-ask="강감찬은 누구예요?">강감찬은 누구예요?</button>
+        <button type="button" data-ask="화장실은 어디예요?">화장실은 어디예요?</button>
+        <button type="button" data-ask="안국사는 어떤 곳이에요?">안국사는 어떤 곳이에요?</button>
+        <button type="button" data-ask="오늘 뭐가 있어요?">오늘 뭐가 있어요?</button>
+      </div>
+      <div class="docent-widget__answer" id="docentAnswer" hidden></div>
+      <form class="docent-widget__form" id="docentForm">
+        <label class="sr-only" for="docentInput">도슨트에게 질문</label>
+        <input id="docentInput" type="text" maxlength="80" autocomplete="off" placeholder="궁금한 장소를 적어 주세요">
+        <button type="submit">보내기</button>
+      </form>
+    </section>
+    <button type="button" class="docent-widget__launch" id="docentLaunch" aria-expanded="false" aria-controls="docentPanel">
+      <img src="./img/ggc.png" alt="" width="104" height="140">
+      <span class="sr-only">AI 스마트 도슨트 열기</span>
+    </button>
+  </div>
+
   <script src="./js/config.js"></script>
   <script src="./js/reserve-payload.js"></script>
   <script src="./js/reserve-fields.js"></script>
   <script src="./js/main.js"></script>
+  <script src="./js/docent-widget.js"></script>
 </body>
 </html>

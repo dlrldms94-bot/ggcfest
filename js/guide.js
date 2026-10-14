@@ -866,6 +866,10 @@
   }
 
   function onHash() {
+    if ((location.hash || "").indexOf("#docent") === 0) {
+      location.replace("docent/");
+      return;
+    }
     var parsed = parseHash();
     var viewChanged = state.view !== parsed.view;
     state.view = parsed.view;
