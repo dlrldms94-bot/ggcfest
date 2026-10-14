@@ -13,9 +13,39 @@ const guestbookQueryEl = document.getElementById("guestbookQuery");
 const tabButtons = Array.from(document.querySelectorAll("[data-admin-tab]"));
 const reservationPanel = document.getElementById("reservationPanel");
 const guestbookPanel = document.getElementById("guestbookPanel");
+const visitsPanel = document.getElementById("visitsPanel");
+const visitTodayUniquesEl = document.getElementById("visitTodayUniques");
+const visitTodayViewsEl = document.getElementById("visitTodayViews");
+const visitTotalUniquesEl = document.getElementById("visitTotalUniques");
+const visitTotalViewsEl = document.getElementById("visitTotalViews");
+const visitDaysCountEl = document.getElementById("visitDaysCount");
+const visitDateEl = document.getElementById("visitDate");
+const visitDateAllEl = document.getElementById("visitDateAll");
+const visitPageRowsEl = document.getElementById("visitPageRows");
+const WEEKDAY_LABELS = ["일", "월", "화", "수", "목", "금", "토"];
+const PAGE_ORDER = [
+  "home",
+  "guide",
+  "guide-programs",
+  "guide-facilities",
+  "guide-textsize",
+  "guide-docent",
+  "guide-docent-anguksa",
+  "guide-docent-main-plaza",
+  "guide-docent-central-plaza",
+  "guide-docent-open-yard",
+  "guide-docent-flower-garden",
+];
 
 let items = [];
 let guestbookItems = [];
+let visitStats = {
+  today: { views: 0, uniques: 0, date: "" },
+  total: { views: 0, uniques: 0 },
+  pathDays: [],
+  days: [],
+  labels: {},
+};
 
 function storedKey() {
   return sessionStorage.getItem(KEY_STORAGE) || "";
@@ -27,9 +57,9 @@ function showError(message) {
 }
 
 function setAdminTab(tabName, moveFocus) {
-  const showGuestbook = tabName === "guestbook";
-  reservationPanel.hidden = showGuestbook;
-  guestbookPanel.hidden = !showGuestbook;
+  reservationPanel.hidden = tabName !== "reservation";
+  guestbookPanel.hidden = tabName !== "guestbook";
+  visitsPanel.hidden = tabName !== "visits";
   tabButtons.forEach((button) => {
     const active = button.dataset.adminTab === tabName;
     button.classList.toggle("is-active", active);
@@ -37,6 +67,18 @@ function setAdminTab(tabName, moveFocus) {
     button.tabIndex = active ? 0 : -1;
     if (active && moveFocus) button.focus();
   });
+}
+
+function formatCount(value) {
+  return Number(value || 0).toLocaleString("ko-KR");
+}
+
+function formatDate(value) {
+  const text = String(value || "").slice(0, 10);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(text)) return "-";
+  const parts = text.split("-");
+  const weekday = WEEKDAY_LABELS[new Date(Date.UTC(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]))).getUTCDay()];
+  return text.replace(/-/g, ".") + " (" + weekday + ")";
 }
 
 function formatTime(value) {
@@ -113,6 +155,59 @@ function renderGuestbookRows() {
   }).join("");
 }
 
+function visitPageLabel(page) {
+  return (visitStats.labels && visitStats.labels[page]) || page || "-";
+}
+
+function visitPagesForDate(date) {
+  const byPage = {};
+  (Array.isArray(visitStats.pathDays) ? visitStats.pathDays : []).forEach((item) => {
+    if (date && item.date !== date) return;
+    if (!byPage[item.page]) byPage[item.page] = { page: item.page, views: 0, uniques: 0 };
+    byPage[item.page].views += Number(item.views) || 0;
+    byPage[item.page].uniques += Number(item.uniques) || 0;
+  });
+  return PAGE_ORDER.map((page) => ({
+    page: page,
+    views: byPage[page] ? byPage[page].views : 0,
+    uniques: byPage[page] ? byPage[page].uniques : 0,
+  }));
+}
+
+function renderVisitDateOptions() {
+  const today = visitStats.today && visitStats.today.date;
+  if (!visitDateEl.value) visitDateEl.value = today || "";
+}
+
+function renderVisitPages() {
+  const date = visitDateEl.value;
+  const pages = visitPagesForDate(date);
+  const totalUniques = pages.reduce((sum, item) => sum + item.uniques, 0);
+  const totalViews = pages.reduce((sum, item) => sum + item.views, 0);
+  visitDaysCountEl.textContent =
+    (date ? formatDate(date) : "전체") +
+    " · 방문 " + formatCount(totalUniques) +
+    " · 조회 " + formatCount(totalViews);
+  visitPageRowsEl.innerHTML = pages.map((item) => {
+    return (
+      "<tr>" +
+      "<td>" + escapeHtml(visitPageLabel(item.page)) + "</td>" +
+      "<td>" + formatCount(item.uniques) + "</td>" +
+      "<td>" + formatCount(item.views) + "</td>" +
+      "</tr>"
+    );
+  }).join("");
+}
+
+function renderVisitStats() {
+  visitTodayUniquesEl.textContent = formatCount(visitStats.today && visitStats.today.uniques);
+  visitTodayViewsEl.textContent = formatCount(visitStats.today && visitStats.today.views);
+  visitTotalUniquesEl.textContent = formatCount(visitStats.total && visitStats.total.uniques);
+  visitTotalViewsEl.textContent = formatCount(visitStats.total && visitStats.total.views);
+  renderVisitDateOptions();
+  renderVisitPages();
+}
+
 function escapeHtml(value) {
   return String(value == null ? "" : value)
     .replace(/&/g, "&amp;")
@@ -127,6 +222,7 @@ async function loadList(key) {
   const responses = await Promise.all([
     fetch("/api/reservations", { headers }),
     fetch("/api/admin/guestbook", { headers }),
+    fetch("/api/admin/visits", { headers }),
   ]);
   const results = await Promise.all(responses.map((response) => response.json().catch(() => ({}))));
   const failedIndex = responses.findIndex((response) => !response.ok);
@@ -139,10 +235,18 @@ async function loadList(key) {
   }
   items = Array.isArray(results[0].items) ? results[0].items : [];
   guestbookItems = Array.isArray(results[1].items) ? results[1].items : [];
+  visitStats = {
+    today: results[2].today || { views: 0, uniques: 0, date: "" },
+    total: results[2].total || { views: 0, uniques: 0 },
+    pathDays: Array.isArray(results[2].pathDays) ? results[2].pathDays : [],
+    days: Array.isArray(results[2].days) ? results[2].days : [],
+    labels: results[2].labels || {},
+  };
   lockForm.hidden = true;
   board.hidden = false;
   renderRows();
   renderGuestbookRows();
+  renderVisitStats();
 }
 
 async function deleteGuestbookEntry(id, button) {
@@ -214,6 +318,16 @@ lockForm.addEventListener("submit", async (event) => {
 queryEl.addEventListener("input", renderRows);
 dayEl.addEventListener("change", renderRows);
 csvBtn.addEventListener("click", downloadCsv);
+visitDateEl.addEventListener("change", renderVisitPages);
+visitDateEl.addEventListener("click", () => {
+  try {
+    if (visitDateEl.showPicker) visitDateEl.showPicker();
+  } catch (error) {}
+});
+visitDateAllEl.addEventListener("click", () => {
+  visitDateEl.value = "";
+  renderVisitPages();
+});
 guestbookQueryEl.addEventListener("input", renderGuestbookRows);
 guestbookRowsEl.addEventListener("click", (event) => {
   const button = event.target.closest("[data-guestbook-id]");

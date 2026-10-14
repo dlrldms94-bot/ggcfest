@@ -14,7 +14,7 @@
     <div class="wrap admin__wrap">
       <p class="eyebrow">ADMIN</p>
       <h1>축제 관리자</h1>
-      <p class="admin__lead">사전예약과 방명록을 관리합니다. 이 주소는 외부에 공유하지 말아 주세요.</p>
+      <p class="admin__lead">사전예약, 방명록, 홈페이지 방문수를 관리합니다. 이 주소는 외부에 공유하지 말아 주세요.</p>
 
       <form class="admin-lock" id="adminLock" hidden>
         <label>관리자 비밀번호
@@ -25,9 +25,17 @@
       </form>
 
       <section class="admin-board" id="adminBoard" hidden>
+        <div class="admin-stats" id="adminStats">
+          <p class="admin-stat"><span>오늘 방문</span><strong id="visitTodayUniques">0</strong></p>
+          <p class="admin-stat"><span>오늘 조회</span><strong id="visitTodayViews">0</strong></p>
+          <p class="admin-stat"><span>누적 방문</span><strong id="visitTotalUniques">0</strong></p>
+          <p class="admin-stat"><span>누적 조회</span><strong id="visitTotalViews">0</strong></p>
+        </div>
+
         <div class="admin-tabs" role="tablist" aria-label="관리 내역 선택">
           <button type="button" class="admin-tab is-active" id="reservationTab" role="tab" aria-selected="true" aria-controls="reservationPanel" data-admin-tab="reservation">사전예약 내역</button>
           <button type="button" class="admin-tab" id="guestbookTab" role="tab" aria-selected="false" aria-controls="guestbookPanel" data-admin-tab="guestbook">방명록 내역</button>
+          <button type="button" class="admin-tab" id="visitsTab" role="tab" aria-selected="false" aria-controls="visitsPanel" data-admin-tab="visits">방문 현황</button>
         </div>
 
         <div class="admin-tab-panel" id="reservationPanel" role="tabpanel" aria-labelledby="reservationTab">
@@ -87,6 +95,30 @@
               </thead>
               <tbody id="guestbookRows">
                 <tr><td colspan="5">불러오는 중…</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="admin-tab-panel" id="visitsPanel" role="tabpanel" aria-labelledby="visitsTab" hidden>
+          <div class="admin-toolbar">
+            <p class="admin-count" id="visitDaysCount">페이지별 방문</p>
+            <label class="admin-filter">날짜
+              <input type="date" id="visitDate">
+            </label>
+            <button type="button" class="admin-date-all" id="visitDateAll">전체</button>
+          </div>
+          <div class="admin-table-wrap">
+            <table class="admin-table admin-table--visits">
+              <thead>
+                <tr>
+                  <th>페이지</th>
+                  <th>방문수</th>
+                  <th>조회수</th>
+                </tr>
+              </thead>
+              <tbody id="visitPageRows">
+                <tr><td colspan="3">불러오는 중…</td></tr>
               </tbody>
             </table>
           </div>

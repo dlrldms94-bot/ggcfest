@@ -1,3 +1,4 @@
+const crypto = require("crypto");
 const express = require("express");
 const path = require("path");
 const db = require("./db");
@@ -7,8 +8,24 @@ const PORT = process.env.PORT || 3000;
 const ROOT = path.join(__dirname, "..");
 const { VISIT_DAYS, PROGRAMS } = require("./reservation-options");
 const guestbookAttempts = new Map();
+const visitAttempts = new Map();
 const GUESTBOOK_WINDOW_MS = 10 * 60 * 1000;
 const GUESTBOOK_MAX_WRITES = 5;
+const VISIT_WINDOW_MS = 10 * 60 * 1000;
+const VISIT_MAX_HITS = 60;
+const PAGE_PATHS = {
+  home: "메인 홈페이지",
+  guide: "스마트 가이드 홈",
+  "guide-programs": "스마트 가이드 · 프로그램 지도",
+  "guide-facilities": "스마트 가이드 · 편의시설",
+  "guide-textsize": "스마트 가이드 · 큰글씨 모드",
+  "guide-docent": "AI 스마트 도슨트",
+  "guide-docent-anguksa": "도슨트 · 안국사",
+  "guide-docent-main-plaza": "도슨트 · 대광장",
+  "guide-docent-central-plaza": "도슨트 · 중광장",
+  "guide-docent-open-yard": "도슨트 · 열린마당",
+  "guide-docent-flower-garden": "도슨트 · 낙성꽃뜰정원",
+};
 
 app.use(express.json({ limit: "32kb" }));
 if (process.env.NODE_ENV === "production") app.set("trust proxy", 1);
@@ -83,6 +100,56 @@ function normalizeGuestbookText(value, multiline) {
     text = text.replace(/\s+/g, " ");
   }
   return text;
+}
+
+function visitRateLimited(req) {
+  const now = Date.now();
+  const key = String(req.ip || req.socket.remoteAddress || "unknown");
+  const recent = (visitAttempts.get(key) || []).filter(function (time) {
+    return now - time < VISIT_WINDOW_MS;
+  });
+  if (recent.length >= VISIT_MAX_HITS) {
+    visitAttempts.set(key, recent);
+    return true;
+  }
+  recent.push(now);
+  visitAttempts.set(key, recent);
+  return false;
+}
+
+function isVisitBot(req) {
+  const ua = String(req.get("user-agent") || "").toLowerCase();
+  if (!ua) return true;
+  return /(bot|crawler|spider|slurp|preview|facebookexternalhit|whatsapp|telegram|discord|curl|wget|python-requests|ahrefs|semrush)/i.test(ua);
+}
+
+function hashVisitorId(value) {
+  const raw = String(value || "").trim();
+  if (!/^[A-Za-z0-9._-]{8,80}$/.test(raw)) return "";
+  return crypto.createHash("sha256").update(raw).digest("hex").slice(0, 32);
+}
+
+function normalizePagePath(value) {
+  const raw = String(value || "").trim().replace(/^https?:\/\/[^/]+/i, "");
+  const pieces = raw.split("#");
+  let pathname = String(pieces[0] || "").split("?")[0].toLowerCase();
+  pathname = pathname.replace(/\/index\.html$/, "");
+  pathname = pathname.replace(/\/+$/, "") || "/";
+  const hash = String(pieces[1] || "").split("/")[0].split("?")[0].toLowerCase();
+  if (pathname === "/") return "home";
+  if (pathname === "/guide") {
+    if (hash === "programs") return "guide-programs";
+    if (hash === "facilities") return "guide-facilities";
+    if (hash === "textsize") return "guide-textsize";
+    return "guide";
+  }
+  if (pathname === "/guide/docent") return "guide-docent";
+  if (pathname === "/guide/docent/anguksa.html") return "guide-docent-anguksa";
+  if (pathname === "/guide/docent/main-plaza.html") return "guide-docent-main-plaza";
+  if (pathname === "/guide/docent/central-plaza.html") return "guide-docent-central-plaza";
+  if (pathname === "/guide/docent/open-yard.html") return "guide-docent-open-yard";
+  if (pathname === "/guide/docent/flower-garden.html") return "guide-docent-flower-garden";
+  return "";
 }
 
 function guestbookRateLimited(req) {
@@ -176,6 +243,22 @@ app.get(
 );
 
 app.post(
+  "/api/visits",
+  handleAsync(async function (req, res) {
+    if (isVisitBot(req) || visitRateLimited(req)) {
+      return res.status(204).end();
+    }
+    const visitorKey = hashVisitorId(req.body && req.body.visitorId);
+    const pagePath = normalizePagePath(req.body && req.body.page);
+    if (!pagePath) {
+      return res.status(204).end();
+    }
+    await db.recordPageVisit(visitorKey, pagePath);
+    res.status(204).end();
+  })
+);
+
+app.post(
   "/api/guestbook",
   handleAsync(async function (req, res) {
     if (req.body && String(req.body.website || "").trim()) {
@@ -241,6 +324,23 @@ app.get(
     const items = await db.listAllGuestbookEntries();
     res.set("Cache-Control", "no-store");
     res.json({ ok: true, total: items.length, items: items });
+  })
+);
+
+app.get(
+  "/api/admin/visits",
+  requireAdmin,
+  handleAsync(async function (req, res) {
+    const stats = await db.getVisitStats();
+    res.set("Cache-Control", "no-store");
+    res.json({
+      ok: true,
+      today: stats.today,
+      total: stats.total,
+      pathDays: stats.pathDays,
+      days: stats.days,
+      labels: PAGE_PATHS,
+    });
   })
 );
 
