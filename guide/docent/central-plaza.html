@@ -16,37 +16,71 @@
       }
     } catch (e) {}
   </script>
-  <link rel="stylesheet" href="../../css/guide.css?v=34">
-  <link rel="stylesheet" href="./docent.css">
+  <link rel="stylesheet" href="../../css/guide.css?v=36">
+  <link rel="stylesheet" href="./docent.css?v=6">
 </head>
 <body>
-  <div class="guide-app">
+  <div class="guide-app docent-app docent-player-page">
     <a class="skip-link" href="#main">본문 바로가기</a>
-    <header class="top">
-      <a class="brand" href="../index.html#home">
-        <img class="brand__face" src="../../img/ggc.png" alt="">
-        <span class="brand__text">
-          <h1 class="brand__name">별동대 스마트 가이드</h1>
-        </span>
+    <header class="top docent-top">
+      <a class="icon-btn" href="./" aria-label="장소 목록">
+        <svg class="guide-arrow guide-arrow--back" viewBox="0 0 42 86" aria-hidden="true"><path fill="currentColor" d="M42,42.5c-.1-1-.5-1.9-1.2-2.7L8.8,1.8C7.1-.3,3.9-.6,1.8,1.2-.3,3-.6,6.1,1.2,8.2h0l29.3,34.8L1.2,77.8c-1.8,2.1-1.5,5.3.6,7s5.3,1.5,7-.6l32-38c.9-1,1.3-2.4,1.2-3.7h0Z"/></svg>
       </a>
-      <a class="icon-btn" href="../index.html#home" aria-label="가이드 홈">
-        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5z"></path>
-        </svg>
+      <a class="brand" href="../index.html#home">
+        <span class="brand__face-wrap"><img class="brand__face" src="../../img/player-assets/gamchani-headset-cutout.png" alt=""></span>
+        <span class="brand__text"><h1 class="brand__name">별동대 스마트 가이드</h1></span>
+      </a>
+      <a class="icon-btn" href="../index.html#home" aria-label="홈">
+        <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5z"/></svg>
       </a>
     </header>
     <main class="docent-page" id="main">
-      <section>
-        <header class="view-head">
-          <h2>중광장</h2>
-          <p>가족이 함께하는 놀이 체험 공간입니다.</p>
-        </header>
-        <button type="button" class="docent-play" data-docent-play data-place="중광장" aria-pressed="false">중광장 설명 듣기</button>
-        <audio class="docent-audio" data-docent-audio controls preload="metadata" src="../../docent/central-plaza.mp3">이 브라우저에서는 음성을 재생할 수 없어요.</audio>
-        <p class="docent-back"><a href="./">다른 장소 고르기</a></p>
+      <section class="docent-player-shell">
+        <div class="docent-portrait" aria-hidden="true">
+          <div class="docent-portrait__halo"></div>
+          <img src="../../img/player-assets/gamchani-headset-cutout.png" alt="">
+        </div>
+        <p class="docent-player__kicker">AI 스마트 도슨트</p>
+        <h2 class="docent-player__title">중광장</h2>
+        <p class="docent-player__lead">가족이 함께하는 놀이 체험 공간입니다.</p>
+        <svg class="docent-wave" data-docent-wave viewBox="0 0 280 64" aria-hidden="true"><g fill="#a894ff"><rect x="4" y="26" width="4" height="12" rx="2"/><rect x="14" y="20" width="4" height="24" rx="2"/><rect x="24" y="14" width="4" height="36" rx="2"/><rect x="34" y="8" width="4" height="48" rx="2"/><rect x="44" y="16" width="4" height="32" rx="2"/><rect x="54" y="22" width="4" height="20" rx="2"/><rect x="64" y="10" width="4" height="44" rx="2"/><rect x="74" y="4" width="4" height="56" rx="2"/><rect x="84" y="12" width="4" height="40" rx="2"/><rect x="94" y="18" width="4" height="28" rx="2"/><rect x="104" y="8" width="4" height="48" rx="2"/><rect x="114" y="2" width="4" height="60" rx="2"/><rect x="124" y="10" width="4" height="44" rx="2"/><rect x="134" y="16" width="4" height="32" rx="2"/><rect x="144" y="6" width="4" height="52" rx="2"/><rect x="154" y="14" width="4" height="36" rx="2"/><rect x="164" y="8" width="4" height="48" rx="2"/><rect x="174" y="18" width="4" height="28" rx="2"/><rect x="184" y="4" width="4" height="56" rx="2"/><rect x="194" y="12" width="4" height="40" rx="2"/><rect x="204" y="20" width="4" height="24" rx="2"/><rect x="214" y="10" width="4" height="44" rx="2"/><rect x="224" y="16" width="4" height="32" rx="2"/><rect x="234" y="22" width="4" height="20" rx="2"/><rect x="244" y="14" width="4" height="36" rx="2"/><rect x="254" y="20" width="4" height="24" rx="2"/><rect x="264" y="26" width="4" height="12" rx="2"/></g></svg>
+        <div class="docent-timeline">
+          <input type="range" min="0" max="100" value="0" step="0.1" data-docent-seek aria-label="재생 위치">
+          <div class="docent-time"><span data-docent-current>00:00</span><span data-docent-duration>--:--</span></div>
+        </div>
+        <div class="docent-controls">
+          <button type="button" class="docent-skip" data-docent-back aria-label="10초 전으로">
+            <img src="../../img/player-assets/rewind-10.png" alt="">
+          </button>
+          <div class="docent-play-wrap">
+            <button type="button" class="docent-play" data-docent-play data-place="중광장" aria-pressed="false" aria-label="중광장 재생">
+              <svg class="docent-play__play" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5-11-6.5z"/></svg>
+              <svg class="docent-play__pause" viewBox="0 0 24 24" aria-hidden="true" hidden><path fill="currentColor" d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>
+            </button>
+            <span class="docent-listen" data-docent-label>재생</span>
+          </div>
+          <button type="button" class="docent-skip" data-docent-forward aria-label="10초 앞으로">
+            <img src="../../img/player-assets/forward-10.png" alt="">
+          </button>
+        </div>
+        <label class="docent-speed">
+          <span class="sr-only">재생 속도</span>
+          <select data-docent-speed aria-label="재생 속도">
+            <option value="0.75">0.75배</option>
+            <option value="1" selected>1.0배</option>
+            <option value="1.25">1.25배</option>
+            <option value="1.5">1.5배</option>
+            <option value="2">2.0배</option>
+          </select>
+        </label>
+        <button type="button" class="docent-restart" data-docent-restart>
+          <img src="../../img/player-assets/restart.png" alt=""> 처음부터 듣기
+        </button>
+        <a class="docent-other" href="./">다른 장소 고르기 <svg class="guide-arrow" viewBox="0 0 42 86" aria-hidden="true"><path fill="currentColor" d="M42,42.5c-.1-1-.5-1.9-1.2-2.7L8.8,1.8C7.1-.3,3.9-.6,1.8,1.2-.3,3-.6,6.1,1.2,8.2h0l29.3,34.8L1.2,77.8c-1.8,2.1-1.5,5.3.6,7s5.3,1.5,7-.6l32-38c.9-1,1.3-2.4,1.2-3.7h0Z"/></svg></a>
+        <audio class="docent-audio" data-docent-audio preload="metadata" src="../../docent/central-plaza.mp3">이 브라우저에서는 음성을 재생할 수 없어요.</audio>
       </section>
     </main>
   </div>
-  <script src="./play.js"></script>
+  <script src="./play.js?v=3"></script>
 </body>
 </html>

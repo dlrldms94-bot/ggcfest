@@ -127,7 +127,7 @@
     panel.hidden = !open;
     launch.setAttribute("aria-expanded", open ? "true" : "false");
     var label = launch.querySelector(".sr-only");
-    if (label) label.textContent = open ? "AI 스마트 도슨트 닫기" : "AI 스마트 도슨트 열기";
+    if (label) label.textContent = open ? "투모로우 감찬이 닫기" : "투모로우 감찬이 열기";
   }
 
   document.addEventListener("DOMContentLoaded", function () {

@@ -15,63 +15,64 @@
       }
     } catch (e) {}
   </script>
-  <link rel="stylesheet" href="../../css/guide.css?v=34">
+  <link rel="stylesheet" href="../../css/guide.css?v=36">
   <link rel="stylesheet" href="./docent.css">
 </head>
 <body>
-  <div class="guide-app">
+  <div class="guide-app docent-app">
     <a class="skip-link" href="#main">본문 바로가기</a>
-    <header class="top">
+    <header class="top docent-top">
+      <a class="icon-btn" href="../index.html#home" aria-label="가이드로 돌아가기">
+        <svg class="guide-arrow guide-arrow--back" viewBox="0 0 42 86" aria-hidden="true"><path fill="currentColor" d="M42,42.5c-.1-1-.5-1.9-1.2-2.7L8.8,1.8C7.1-.3,3.9-.6,1.8,1.2-.3,3-.6,6.1,1.2,8.2h0l29.3,34.8L1.2,77.8c-1.8,2.1-1.5,5.3.6,7s5.3,1.5,7-.6l32-38c.9-1,1.3-2.4,1.2-3.7h0Z"/></svg>
+      </a>
       <a class="brand" href="../index.html#home">
         <img class="brand__face" src="../../img/ggc.png" alt="">
         <span class="brand__text">
           <h1 class="brand__name">별동대 스마트 가이드</h1>
         </span>
       </a>
-      <a class="icon-btn" href="../index.html#home" aria-label="가이드 홈">
-        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5z"></path>
-        </svg>
+      <a class="icon-btn" href="../index.html#home" aria-label="홈">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-6H10v6H5a1 1 0 0 1-1-1v-9.5z"/></svg>
       </a>
     </header>
     <main class="docent-page" id="main">
       <section>
-        <header class="view-head">
+        <header class="docent-intro">
           <h2>AI 스마트 도슨트</h2>
-          <p>장소를 고르면 그 장소 설명을 들을 수 있어요.</p>
+          <p>궁금한 장소를 고르고 이야기를 들어보세요.</p>
         </header>
-        <nav class="menu" aria-label="도슨트 장소">
-          <a class="menu-btn" href="anguksa.html">
-            <span class="menu-ico menu-ico--docent" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l12-7L8 5z"/></svg>
-            </span>
-            <span class="menu-btn__label">안국사</span>
+        <a class="docent-feature" href="anguksa.html">
+          <img class="docent-feature__bg" src="../../img/docent-assets/anguksa-background.png" alt="">
+          <span class="docent-feature__copy">
+            <h3>안국사</h3>
+            <p>강감찬 장군을 모신 사당</p>
+            <span class="docent-feature__go">안국사 이야기 보기 <svg class="guide-arrow" viewBox="0 0 42 86" aria-hidden="true"><path fill="currentColor" d="M42,42.5c-.1-1-.5-1.9-1.2-2.7L8.8,1.8C7.1-.3,3.9-.6,1.8,1.2-.3,3-.6,6.1,1.2,8.2h0l29.3,34.8L1.2,77.8c-1.8,2.1-1.5,5.3.6,7s5.3,1.5,7-.6l32-38c.9-1,1.3-2.4,1.2-3.7h0Z"/></svg></span>
+          </span>
+        </a>
+        <h3 class="docent-more">다른 장소</h3>
+        <nav class="docent-places" aria-label="다른 장소">
+          <a class="docent-place" href="main-plaza.html">
+            <img src="../../img/docent-assets/large-plaza-icon.png" alt="" width="76" height="52">
+            <span>대광장</span>
           </a>
-          <a class="menu-btn" href="main-plaza.html">
-            <span class="menu-ico menu-ico--docent" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l12-7L8 5z"/></svg>
-            </span>
-            <span class="menu-btn__label">대광장</span>
+          <a class="docent-place" href="central-plaza.html">
+            <img src="../../img/docent-assets/middle-plaza-icon.png" alt="" width="76" height="52">
+            <span>중광장</span>
           </a>
-          <a class="menu-btn" href="central-plaza.html">
-            <span class="menu-ico menu-ico--docent" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l12-7L8 5z"/></svg>
-            </span>
-            <span class="menu-btn__label">중광장</span>
+          <a class="docent-place" href="open-yard.html">
+            <img src="../../img/docent-assets/open-yard-icon.png" alt="" width="76" height="52">
+            <span>열린마당</span>
           </a>
-          <a class="menu-btn" href="open-yard.html">
-            <span class="menu-ico menu-ico--docent" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l12-7L8 5z"/></svg>
-            </span>
-            <span class="menu-btn__label">열린마당</span>
-          </a>
-          <a class="menu-btn" href="flower-garden.html">
-            <span class="menu-ico menu-ico--docent" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l12-7L8 5z"/></svg>
-            </span>
-            <span class="menu-btn__label">낙성꽃들정원</span>
+          <a class="docent-place" href="flower-garden.html">
+            <img src="../../img/docent-assets/garden-icon.png" alt="" width="76" height="52">
+            <span>낙성꽃들정원</span>
           </a>
         </nav>
+        <p class="docent-note">
+          <img src="../../img/docent-assets/book-icon.png" alt="" width="22" height="24">
+          <span class="docent-note__bar" aria-hidden="true"></span>
+          설명은 글로도 읽을 수 있어요.
+        </p>
       </section>
     </main>
   </div>
