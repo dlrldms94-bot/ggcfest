@@ -299,7 +299,7 @@ document.querySelectorAll(".gnb a").forEach((a) => {
 
 window.addEventListener("scroll", () => {
   header.classList.toggle("is-scrolled", window.scrollY > 12);
-  const ids = ["guide", "program", "timetable", "event", "points", "location"];
+  const ids = ["guide", "program", "timetable", "event", "points", "location", "guestbook"];
   let current = "";
   ids.forEach((id) => {
     const el = document.getElementById(id);
