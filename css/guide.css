@@ -81,6 +81,9 @@ main { position: relative; }
 main > section {
   padding: 0 1rem calc(var(--tab-h) + 1.4rem + env(safe-area-inset-bottom));
 }
+main > section[data-view]:not([data-view="home"]) {
+  padding-top: 1.5rem;
+}
 
 .top {
   position: sticky;
@@ -162,7 +165,7 @@ body.is-locked .top { z-index: 20; }
   padding: 0.35rem 1rem calc(var(--tab-h) + 1.2rem + env(safe-area-inset-bottom));
 }
 .view-head {
-  margin-top: 1rem;
+  margin-top: 0;
 }
 .view-head h2,
 .view-title {
@@ -519,6 +522,10 @@ html.is-large .map-stage.is-fit { width: 100%; }
 .map-stage img,
 .map-stage .map-svg { width: 100%; height: 100%; display: block; }
 .map-stage [data-place] { pointer-events: none; }
+.map-stage [data-place].is-context {
+  opacity: 0.2;
+  filter: saturate(0.45);
+}
 .map-stage [data-place].is-hit { pointer-events: auto; cursor: pointer; }
 .map-stage [data-place].is-off { opacity: 0.28; pointer-events: none; }
 .map-stage [data-place].is-hit.is-active {

@@ -1618,7 +1618,23 @@ a.p-card:focus-visible {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 44px;
+  min-height: 56px;
+}
+.docent-widget__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.docent-widget__logo {
+  width: 52px;
+  height: 52px;
+  border: 2px solid #f6e255;
+  border-radius: 50%;
+  background: #3b2c83;
+  object-fit: cover;
+  object-position: center 18%;
+  flex: 0 0 auto;
 }
 .docent-widget__bar h2 {
   margin: 0;
@@ -1638,7 +1654,7 @@ a.p-card:focus-visible {
   line-height: 1;
 }
 .docent-widget__hello {
-  margin: 0 0 12px;
+  margin: 14px 0 12px;
   color: #1d1d1f;
   font-size: 15px;
   font-weight: 650;

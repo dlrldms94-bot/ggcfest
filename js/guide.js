@@ -16,7 +16,7 @@
   var built = { programs: false, facilities: false };
   var mapCentered = { program: false, facility: false };
   var preferOverview = { program: false, facility: false };
-  var mapNodePromise = null;
+  var mapNodePromises = {};
   var lastFocus = null;
   var titles = {
     home: "별동대 스마트 가이드",
@@ -251,10 +251,10 @@
       });
   }
 
-  function loadMapNode() {
-    if (mapNodePromise) return mapNodePromise;
-    var src = safeSrc(state.data && state.data.map && state.data.map.image) || "../img/guide-map.svg";
-    mapNodePromise = fetch(src, { cache: "no-store" }).then(function (res) {
+  function loadMapNode(image) {
+    var src = safeSrc(image || (state.data && state.data.map && state.data.map.image)) || "../img/guide-map.svg";
+    if (mapNodePromises[src]) return mapNodePromises[src];
+    mapNodePromises[src] = fetch(src, { cache: "no-store" }).then(function (res) {
       if (!res.ok) throw new Error("map");
       return res.text();
     }).then(function (text) {
@@ -263,6 +263,7 @@
       var svg = holder.querySelector("svg");
       if (!svg) throw new Error("map");
       svg.setAttribute("class", "map-svg");
+      svg.setAttribute("data-map-src", src);
       svg.querySelectorAll("[data-place]").forEach(function (el) {
         var id = el.getAttribute("data-place");
         if (!safeId(id)) return;
@@ -282,16 +283,20 @@
       });
       return svg;
     }).catch(function (err) {
-      mapNodePromise = null;
+      delete mapNodePromises[src];
       throw err;
     });
-    return mapNodePromise;
+    return mapNodePromises[src];
   }
 
-  function mountMap(stageId) {
-    return loadMapNode().then(function (svg) {
+  function mountMap(stageId, image) {
+    return loadMapNode(image).then(function (svg) {
       var stage = document.getElementById(stageId);
-      if (stage && svg.parentNode !== stage) stage.insertBefore(svg, stage.firstChild);
+      if (!stage) return;
+      document.querySelectorAll(".map-svg").forEach(function (mounted) {
+        if (mounted !== svg) mounted.remove();
+      });
+      if (svg.parentNode !== stage) stage.insertBefore(svg, stage.firstChild);
     });
   }
 
@@ -307,12 +312,15 @@
   }
 
   function setMapHits(mode) {
-    var svg = document.querySelector(".map-svg");
+    var stageId = mode === "facilities" ? "facilityStage" : "programStage";
+    var svg = document.querySelector("#" + stageId + " .map-svg");
     if (!svg) return;
+    svg.classList.toggle("is-facility-map", mode === "facilities");
     svg.querySelectorAll("[data-place]").forEach(function (el) {
       var id = el.getAttribute("data-place");
       var on = mode === "facilities" ? facilityIdsForPlace(id).length > 0 : (!!findZone(id) && id !== "operations-hq");
       el.classList.toggle("is-hit", on);
+      el.classList.toggle("is-context", mode === "facilities" && !on);
       if (on) {
         el.setAttribute("role", "button");
         el.setAttribute("tabindex", "0");
@@ -527,7 +535,7 @@
   function ensureFacilities() {
     if (!state.data) return Promise.resolve();
     if (!built.facilities) buildFacilities();
-    return mountMap("facilityStage").then(function () {
+    return mountMap("facilityStage", "img/guide-map2.svg").then(function () {
       setMapHits("facilities");
       applyFacilityType();
       renderFacilityList();
