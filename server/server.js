@@ -6,8 +6,12 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const ROOT = path.join(__dirname, "..");
 const { VISIT_DAYS, PROGRAMS } = require("./reservation-options");
+const guestbookAttempts = new Map();
+const GUESTBOOK_WINDOW_MS = 10 * 60 * 1000;
+const GUESTBOOK_MAX_WRITES = 5;
 
 app.use(express.json({ limit: "32kb" }));
+if (process.env.NODE_ENV === "production") app.set("trust proxy", 1);
 
 function handleAsync(handler) {
   return function (req, res) {
@@ -62,6 +66,38 @@ function normalizeChoices(value, allowed) {
     chosen.push(name);
   }
   return chosen;
+}
+
+function normalizeGuestbookText(value, multiline) {
+  let text = String(value || "")
+    .replace(/\r\n?/g, "\n")
+    .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, "")
+    .trim();
+  if (multiline) {
+    text = text
+      .split("\n")
+      .map(function (line) { return line.trim().replace(/[ \t]+/g, " "); })
+      .filter(Boolean)
+      .join("\n");
+  } else {
+    text = text.replace(/\s+/g, " ");
+  }
+  return text;
+}
+
+function guestbookRateLimited(req) {
+  const now = Date.now();
+  const key = String(req.ip || req.socket.remoteAddress || "unknown");
+  const recent = (guestbookAttempts.get(key) || []).filter(function (time) {
+    return now - time < GUESTBOOK_WINDOW_MS;
+  });
+  if (recent.length >= GUESTBOOK_MAX_WRITES) {
+    guestbookAttempts.set(key, recent);
+    return true;
+  }
+  recent.push(now);
+  guestbookAttempts.set(key, recent);
+  return false;
 }
 
 app.get(
@@ -119,6 +155,52 @@ app.post(
   })
 );
 
+app.get(
+  "/api/guestbook",
+  handleAsync(async function (req, res) {
+    const rawLimit = Number.parseInt(req.query && req.query.limit, 10);
+    const rawPage = Number.parseInt(req.query && req.query.page, 10);
+    const limit = Number.isInteger(rawLimit) ? Math.min(12, Math.max(1, rawLimit)) : 6;
+    const requestedPage = Number.isInteger(rawPage) ? Math.min(100000, Math.max(1, rawPage)) : 1;
+    const result = await db.listGuestbookEntries({ limit: limit, page: requestedPage });
+    const totalPages = Math.max(1, Math.ceil(result.total / limit));
+    res.set("Cache-Control", "no-store");
+    res.json({
+      ok: true,
+      items: result.items,
+      total: result.total,
+      page: requestedPage,
+      totalPages: totalPages,
+    });
+  })
+);
+
+app.post(
+  "/api/guestbook",
+  handleAsync(async function (req, res) {
+    if (req.body && String(req.body.website || "").trim()) {
+      return res.status(201).json({ ok: true });
+    }
+    const name = normalizeGuestbookText(req.body && req.body.name, false);
+    const message = normalizeGuestbookText(req.body && req.body.message, true);
+    if (!name || Array.from(name).length > 12) {
+      return res.status(400).json({ message: "이름은 12자 이내로 입력해 주세요." });
+    }
+    if (!message || Array.from(message).length > 200) {
+      return res.status(400).json({ message: "방명록은 200자 이내로 입력해 주세요." });
+    }
+    if (!req.body || req.body.publicAgreed !== true) {
+      return res.status(400).json({ message: "방명록 공개에 동의해 주세요." });
+    }
+    if (guestbookRateLimited(req)) {
+      return res.status(429).json({ message: "잠시 후 다시 작성해 주세요." });
+    }
+
+    const entry = await db.createGuestbookEntry({ name: name, message: message });
+    res.status(201).json({ ok: true, item: entry });
+  })
+);
+
 function readAdminKey(req) {
   const header = String(req.get("x-admin-key") || "").trim();
   if (header) return header;
@@ -149,6 +231,32 @@ app.get(
   handleAsync(async function (req, res) {
     const items = await db.listReservations();
     res.json({ ok: true, total: items.length, items: items });
+  })
+);
+
+app.get(
+  "/api/admin/guestbook",
+  requireAdmin,
+  handleAsync(async function (req, res) {
+    const items = await db.listAllGuestbookEntries();
+    res.set("Cache-Control", "no-store");
+    res.json({ ok: true, total: items.length, items: items });
+  })
+);
+
+app.delete(
+  "/api/admin/guestbook/:id",
+  requireAdmin,
+  handleAsync(async function (req, res) {
+    const id = Number(req.params.id);
+    if (!Number.isSafeInteger(id) || id < 1) {
+      return res.status(400).json({ message: "올바른 방명록 번호가 아닙니다." });
+    }
+    const deleted = await db.deleteGuestbookEntry(id);
+    if (!deleted) {
+      return res.status(404).json({ message: "이미 삭제되었거나 존재하지 않는 방명록입니다." });
+    }
+    res.json({ ok: true, id: id });
   })
 );
 

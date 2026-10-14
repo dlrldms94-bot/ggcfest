@@ -7,8 +7,12 @@ const countEl = document.getElementById("adminCount");
 const queryEl = document.getElementById("adminQuery");
 const dayEl = document.getElementById("adminDay");
 const csvBtn = document.getElementById("adminCsv");
+const guestbookRowsEl = document.getElementById("guestbookRows");
+const guestbookCountEl = document.getElementById("guestbookCount");
+const guestbookQueryEl = document.getElementById("guestbookQuery");
 
 let items = [];
+let guestbookItems = [];
 
 function storedKey() {
   return sessionStorage.getItem(KEY_STORAGE) || "";
@@ -67,6 +71,32 @@ function renderRows() {
   }).join("");
 }
 
+function renderGuestbookRows() {
+  const query = guestbookQueryEl.value.trim().replace(/\s+/g, "").toLowerCase();
+  const visible = guestbookItems.filter((item) => {
+    if (!query) return true;
+    return (item.name + item.message).replace(/\s+/g, "").toLowerCase().indexOf(query) !== -1;
+  });
+  guestbookCountEl.textContent =
+    visible.length + "건" +
+    (visible.length !== guestbookItems.length ? " / 전체 " + guestbookItems.length + "건" : "");
+  if (!visible.length) {
+    guestbookRowsEl.innerHTML = '<tr><td colspan="5">방명록이 없습니다.</td></tr>';
+    return;
+  }
+  guestbookRowsEl.innerHTML = visible.map((item) => {
+    return (
+      "<tr>" +
+      "<td>" + item.id + "</td>" +
+      "<td>" + escapeHtml(item.name) + "</td>" +
+      '<td class="admin-guestbook-message">' + escapeHtml(item.message).replace(/\n/g, "<br>") + "</td>" +
+      "<td>" + escapeHtml(formatTime(item.createdAt)) + "</td>" +
+      '<td><button type="button" class="admin-delete" data-guestbook-id="' + item.id + '">삭제</button></td>' +
+      "</tr>"
+    );
+  }).join("");
+}
+
 function escapeHtml(value) {
   return String(value == null ? "" : value)
     .replace(/&/g, "&amp;")
@@ -78,19 +108,49 @@ function escapeHtml(value) {
 async function loadList(key) {
   const headers = {};
   if (key) headers["x-admin-key"] = key;
-  const response = await fetch("/api/reservations", { headers });
-  const result = await response.json().catch(() => ({}));
-  if (response.status === 401) {
+  const responses = await Promise.all([
+    fetch("/api/reservations", { headers }),
+    fetch("/api/admin/guestbook", { headers }),
+  ]);
+  const results = await Promise.all(responses.map((response) => response.json().catch(() => ({}))));
+  const failedIndex = responses.findIndex((response) => !response.ok);
+  if (responses.some((response) => response.status === 401)) {
     sessionStorage.removeItem(KEY_STORAGE);
-    throw new Error(result.message || "관리자 비밀번호를 확인해 주세요.");
+    throw new Error("관리자 비밀번호를 확인해 주세요.");
   }
-  if (!response.ok) {
-    throw new Error(result.message || "내역을 불러오지 못했습니다.");
+  if (failedIndex !== -1) {
+    throw new Error(results[failedIndex].message || "내역을 불러오지 못했습니다.");
   }
-  items = Array.isArray(result.items) ? result.items : [];
+  items = Array.isArray(results[0].items) ? results[0].items : [];
+  guestbookItems = Array.isArray(results[1].items) ? results[1].items : [];
   lockForm.hidden = true;
   board.hidden = false;
   renderRows();
+  renderGuestbookRows();
+}
+
+async function deleteGuestbookEntry(id, button) {
+  const item = guestbookItems.find((entry) => entry.id === id);
+  if (!item) return;
+  if (!window.confirm(item.name + "님의 방명록을 삭제할까요?\n삭제한 글은 복구할 수 없습니다.")) return;
+
+  button.disabled = true;
+  try {
+    const headers = {};
+    const key = storedKey();
+    if (key) headers["x-admin-key"] = key;
+    const response = await fetch("/api/admin/guestbook/" + id, {
+      method: "DELETE",
+      headers: headers,
+    });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(result.message || "방명록을 삭제하지 못했습니다.");
+    guestbookItems = guestbookItems.filter((entry) => entry.id !== id);
+    renderGuestbookRows();
+  } catch (error) {
+    button.disabled = false;
+    window.alert(error.message);
+  }
 }
 
 function csvEscape(value) {
@@ -138,6 +198,12 @@ lockForm.addEventListener("submit", async (event) => {
 queryEl.addEventListener("input", renderRows);
 dayEl.addEventListener("change", renderRows);
 csvBtn.addEventListener("click", downloadCsv);
+guestbookQueryEl.addEventListener("input", renderGuestbookRows);
+guestbookRowsEl.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-guestbook-id]");
+  if (!button) return;
+  deleteGuestbookEntry(Number(button.dataset.guestbookId), button);
+});
 
 (async function start() {
   try {

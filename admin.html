@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>사전신청 내역 | 2026 관악강감찬축제</title>
+  <title>관리자 | 2026 관악강감찬축제</title>
   <meta name="robots" content="noindex, nofollow">
   <link rel="icon" href="./img/ggc.png">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css">
@@ -13,8 +13,8 @@
   <main class="admin">
     <div class="wrap admin__wrap">
       <p class="eyebrow">ADMIN</p>
-      <h1>사전예약 내역</h1>
-      <p class="admin__lead">2026 관악강감찬축제 사전예약 목록입니다. 이 주소는 외부에 공유하지 말아 주세요.</p>
+      <h1>축제 관리자</h1>
+      <p class="admin__lead">사전예약과 방명록을 관리합니다. 이 주소는 외부에 공유하지 말아 주세요.</p>
 
       <form class="admin-lock" id="adminLock" hidden>
         <label>관리자 비밀번호
@@ -25,6 +25,7 @@
       </form>
 
       <section class="admin-board" id="adminBoard" hidden>
+        <h2 class="admin-heading">사전예약 내역</h2>
         <div class="admin-toolbar">
           <p class="admin-count" id="adminCount">0건</p>
           <label class="admin-search">검색
@@ -56,6 +57,30 @@
             </thead>
             <tbody id="adminRows">
               <tr><td colspan="8">불러오는 중…</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 class="admin-heading admin-heading--guestbook">방명록 관리</h2>
+        <div class="admin-toolbar">
+          <p class="admin-count" id="guestbookCount">0건</p>
+          <label class="admin-search">검색
+            <input type="search" id="guestbookQuery" placeholder="이름 또는 내용">
+          </label>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table admin-table--guestbook">
+            <thead>
+              <tr>
+                <th>번호</th>
+                <th>이름</th>
+                <th>내용</th>
+                <th>작성 일시</th>
+                <th>관리</th>
+              </tr>
+            </thead>
+            <tbody id="guestbookRows">
+              <tr><td colspan="5">불러오는 중…</td></tr>
             </tbody>
           </table>
         </div>

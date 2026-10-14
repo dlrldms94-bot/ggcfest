@@ -60,7 +60,7 @@
   }
   </script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css">
-  <link rel="stylesheet" href="./css/style.css?v=2">
+  <link rel="stylesheet" href="./css/style.css?v=4">
 </head>
 <body>
   <a class="skip-link" href="#main">본문 바로가기</a>
@@ -319,6 +319,24 @@
       </div>
     </section>
 
+    <section class="guestbook" id="guestbook">
+      <div class="wrap">
+        <header class="section-head section-head--center guestbook__head">
+          <p class="eyebrow">FESTIVAL GUEST BOOK</p>
+          <h2>축제에 마음을 남겨주세요</h2>
+          <p class="section-head__sub">함께 만드는 내일의 축제에 따뜻한 한마디를 남겨보세요.</p>
+        </header>
+        <div class="guestbook__toolbar">
+          <p><strong id="guestbookCount">0</strong>개의 마음이 도착했어요</p>
+          <button type="button" class="guestbook__write" data-open-guestbook>방명록 작성하기</button>
+        </div>
+        <div class="guestbook__list" id="guestbookList" aria-live="polite">
+          <p class="guestbook__status">방명록을 불러오고 있어요.</p>
+        </div>
+        <nav class="guestbook__pagination" id="guestbookPagination" aria-label="방명록 페이지"></nav>
+      </div>
+    </section>
+
     <section class="partners" id="partners" hidden>
       <div class="wrap partners__row">
         <div class="partners__copy">
@@ -466,6 +484,37 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+  <div class="modal guestbook-modal" id="guestbookModal" hidden>
+    <div class="modal__backdrop" data-close-guestbook></div>
+    <div class="modal__panel guestbook-modal__panel" role="dialog" aria-modal="true" aria-labelledby="guestbookModalTitle">
+      <button class="modal__close" type="button" data-close-guestbook aria-label="방명록 작성 닫기">×</button>
+      <p class="eyebrow">WRITE A MESSAGE</p>
+      <h2 id="guestbookModalTitle">마음을 남겨주세요</h2>
+      <p class="modal__lead">작성한 이름과 내용은 누구나 볼 수 있어요.</p>
+      <form class="guestbook-form" id="guestbookForm">
+        <label>
+          <span>이름</span>
+          <input type="text" name="name" maxlength="12" autocomplete="name" required placeholder="이름 또는 별명">
+        </label>
+        <label>
+          <span>방명록</span>
+          <textarea name="message" maxlength="200" required placeholder="축제에 전하고 싶은 이야기를 남겨주세요."></textarea>
+          <small><span id="guestbookMessageCount">0</span>/200</small>
+        </label>
+        <label class="guestbook-form__trap" aria-hidden="true">
+          <span>웹사이트</span>
+          <input type="text" name="website" tabindex="-1" autocomplete="off">
+        </label>
+        <label class="guestbook-form__agree">
+          <input type="checkbox" name="publicAgreed" required>
+          <span>이름과 작성 내용이 공개되는 것에 동의합니다.</span>
+        </label>
+        <p class="guestbook-form__status" id="guestbookFormStatus" role="status"></p>
+        <button type="submit" class="guestbook-form__submit">방명록 남기기</button>
+      </form>
+    </div>
+  </div>
+
   <div class="docent-widget" id="docentWidget">
     <section class="docent-widget__panel" id="docentPanel" hidden aria-labelledby="docentTitle">
       <div class="docent-widget__bar">
@@ -499,6 +548,7 @@
   <script src="./js/reserve-payload.js"></script>
   <script src="./js/reserve-fields.js"></script>
   <script src="./js/main.js"></script>
+  <script src="./js/guestbook.js?v=2"></script>
   <script src="./js/docent-widget.js"></script>
 </body>
 </html>

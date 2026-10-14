@@ -3,6 +3,7 @@ const { Pool } = require("pg");
 let pool = null;
 let useMemory = false;
 const memoryReservations = [];
+const memoryGuestbookEntries = [];
 
 async function initDatabase() {
   const databaseUrl = process.env.DATABASE_URL;
@@ -38,6 +39,14 @@ async function initDatabase() {
   `);
   await pool.query(`
     ALTER TABLE reservations ADD COLUMN IF NOT EXISTS privacy_agreed BOOLEAN NOT NULL DEFAULT FALSE
+  `);
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS guestbook_entries (
+      id SERIAL PRIMARY KEY,
+      name TEXT NOT NULL,
+      message TEXT NOT NULL,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
   `);
 
   console.log("[db] PostgreSQL 연결 완료");
@@ -108,9 +117,122 @@ async function listReservations() {
   });
 }
 
+async function createGuestbookEntry(data) {
+  if (useMemory) {
+    const entry = {
+      id: memoryGuestbookEntries.reduce(function (max, item) {
+        return Math.max(max, item.id);
+      }, 0) + 1,
+      name: data.name,
+      message: data.message,
+      createdAt: new Date().toISOString(),
+    };
+    memoryGuestbookEntries.push(entry);
+    return entry;
+  }
+
+  const result = await pool.query(
+    `INSERT INTO guestbook_entries (name, message)
+     VALUES ($1, $2)
+     RETURNING id, name, message, created_at`,
+    [data.name, data.message]
+  );
+  const row = result.rows[0];
+  return {
+    id: row.id,
+    name: row.name,
+    message: row.message,
+    createdAt: row.created_at,
+  };
+}
+
+async function listGuestbookEntries(options) {
+  const limit = options.limit;
+  const page = options.page;
+  const offset = (page - 1) * limit;
+
+  if (useMemory) {
+    const filtered = memoryGuestbookEntries
+      .slice()
+      .reverse();
+    const items = filtered.slice(offset, offset + limit);
+    return {
+      items: items,
+      page: page,
+      total: memoryGuestbookEntries.length,
+    };
+  }
+
+  const results = await Promise.all([
+    pool.query(
+      `SELECT id, name, message, created_at
+       FROM guestbook_entries
+       ORDER BY id DESC
+       LIMIT $1 OFFSET $2`,
+      [limit, offset]
+    ),
+    pool.query("SELECT COUNT(*)::int AS total FROM guestbook_entries"),
+  ]);
+  const result = results[0];
+  const rows = result.rows.slice(0, limit);
+  return {
+    items: rows.map(function (row) {
+      return {
+        id: row.id,
+        name: row.name,
+        message: row.message,
+        createdAt: row.created_at,
+      };
+    }),
+    page: page,
+    total: results[1].rows[0].total,
+  };
+}
+
+async function listAllGuestbookEntries() {
+  if (useMemory) {
+    return memoryGuestbookEntries.slice().reverse();
+  }
+
+  const result = await pool.query(
+    `SELECT id, name, message, created_at
+     FROM guestbook_entries
+     ORDER BY id DESC`
+  );
+  return result.rows.map(function (row) {
+    return {
+      id: row.id,
+      name: row.name,
+      message: row.message,
+      createdAt: row.created_at,
+    };
+  });
+}
+
+async function deleteGuestbookEntry(id) {
+  if (useMemory) {
+    const index = memoryGuestbookEntries.findIndex(function (entry) {
+      return entry.id === id;
+    });
+    if (index === -1) return false;
+    memoryGuestbookEntries.splice(index, 1);
+    return true;
+  }
+
+  const result = await pool.query(
+    "DELETE FROM guestbook_entries WHERE id = $1 RETURNING id",
+    [id]
+  );
+  return result.rowCount > 0;
+}
+
 module.exports = {
   initDatabase,
   pingDatabase,
   createReservation,
   listReservations,
+  createGuestbookEntry,
+  listGuestbookEntries,
+  listAllGuestbookEntries,
+  deleteGuestbookEntry,
 };
