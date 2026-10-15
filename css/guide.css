@@ -244,7 +244,14 @@ body.is-locked .top { z-index: 20; }
 .menu-ico--pin { background: #6d4dff; }
 .menu-ico--aid { background: #ef5d8a; }
 .menu-ico--type { background: #7a5cff; color: #fff; }
-.menu-ico--home { background: #3d4db8; color: #fff; }
+.menu-ico--home {
+  background: #3d4db8;
+  color: #fff;
+}
+.menu-ico--home svg {
+  width: 1.45rem;
+  height: 1.45rem;
+}
 .menu-ico--docent { background: #f6e255; color: #241c08; }
 .menu-ico--photo {
   background: transparent;
