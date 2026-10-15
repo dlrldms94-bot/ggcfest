@@ -510,12 +510,10 @@
     html += '<div class="map-scroll" id="facilityScroll"><div class="map-stage" id="facilityStage">';
     html += '<div class="user-dot" id="facilityUser" hidden></div></div></div>';
     html += '<div class="map-tools"><p>지도를 확대해 시설을 확인해 보세요.</p><button type="button" data-zoom="facility" aria-pressed="false">한눈에 보기</button></div>';
-    html += '<div class="geo-row"><p class="status geo-status" id="geoStatus" data-state="idle" aria-live="polite">위치 허용 후 거리를 확인할 수 있어요.</p>';
-    html += '<button class="geo-btn" id="geoBtn" type="button">현 위치 기준 새로고침</button></div>';
+    html += '<div class="geo-row"><p class="status geo-status" id="geoStatus" data-state="idle" aria-live="polite">위치 허용 후 거리를 확인할 수 있어요.</p></div>';
     html += '<div class="fac-list" id="facilityList"></div>';
     html += '<p class="note">좌표가 확인된 시설만 거리를 보여 드려요. 연락처는 확정된 번호만 표시해요.</p>';
     root.innerHTML = html;
-    document.getElementById("geoBtn").addEventListener("click", requestLocation);
     built.facilities = true;
     if (state.position) placeUserDot();
   }
@@ -540,6 +538,7 @@
       applyFacilityType();
       renderFacilityList();
       if (state.position) placeUserDot();
+      else requestLocation();
       applyEntryFit("facility");
       if (!mapCentered.facility) {
         mapCentered.facility = true;
@@ -676,13 +675,11 @@
   }
 
   function requestLocation() {
-    var btn = document.getElementById("geoBtn");
-    if (!btn || !document.getElementById("geoStatus")) return;
+    if (!document.getElementById("geoStatus")) return;
     if (!window.isSecureContext || !navigator.geolocation) {
-      setGeoStatus("unsupported", "이 연결에서는 위치를 쓸 수 없어요. HTTPS로 연 뒤 다시 눌러 주세요.");
+      setGeoStatus("unsupported", "이 연결에서는 위치를 쓸 수 없어요. HTTPS로 열어 주세요.");
       return;
     }
-    btn.disabled = true;
     setGeoStatus("pending", "현재 위치를 확인하고 있어요.");
     navigator.geolocation.getCurrentPosition(function (pos) {
       state.position = {
@@ -690,7 +687,6 @@
         lng: pos.coords.longitude,
         accuracy: pos.coords.accuracy
       };
-      btn.disabled = false;
       var acc = Math.round(pos.coords.accuracy || 0);
       var located = (state.data.facilities || []).some(hasLatLng);
       var text = located
@@ -699,7 +695,7 @@
       if (acc) text += " GPS 오차 약 " + acc + "m.";
       var away = distanceMeters(state.position, parkCenter());
       if (away != null && away > 1200) {
-        text += " 지금 위치가 행사장과 멀리 있어요. 도착한 뒤 다시 눌러 주세요.";
+        text += " 지금 위치가 행사장과 멀리 있어요.";
       } else if (acc > 80) {
         text += " 오차가 커서 순서가 달라질 수 있어요.";
       }
@@ -707,11 +703,10 @@
       placeUserDot();
       renderFacilityList();
     }, function (err) {
-      btn.disabled = false;
       if (err && err.code === 1) {
-        setGeoStatus("denied", "위치 권한이 거부됐어요. 브라우저 설정에서 위치를 허용한 뒤 다시 눌러 주세요.");
+        setGeoStatus("denied", "위치 권한이 거부됐어요. 브라우저 설정에서 위치를 허용해 주세요.");
       } else {
-        setGeoStatus("failed", "위치를 가져오지 못했어요. 잠시 후 다시 눌러 주세요.");
+        setGeoStatus("failed", "위치를 가져오지 못했어요.");
       }
     }, { enableHighAccuracy: true, timeout: 12000, maximumAge: 0 });
   }
