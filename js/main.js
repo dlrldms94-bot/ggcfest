@@ -430,6 +430,12 @@ async function createSummonsImage(name) {
 }
 
 document.querySelectorAll("[data-open-reserve]").forEach((btn) => {
+  if (!reserveOpen) {
+    btn.disabled = true;
+    btn.classList.add("btn-reserve--closed");
+    btn.setAttribute("aria-disabled", "true");
+    return;
+  }
   btn.addEventListener("click", openReserveModal);
 });
 document.querySelectorAll("[data-close-reserve]").forEach((btn) => {
